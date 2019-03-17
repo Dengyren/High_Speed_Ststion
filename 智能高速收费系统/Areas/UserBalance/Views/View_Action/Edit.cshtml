@@ -1,0 +1,42 @@
+﻿@model DAL.View_Action
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>View_Action</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.id)
+
+        @Html.HiddenFor(model => model.用户编号)
+
+        @Html.HiddenFor(model => model.操作动作)
+
+        @Html.HiddenFor(model => model.时间)
+
+        @Html.HiddenFor(model => model.当时余额)
+
+        @Html.HiddenFor(model => model.操作金额)
+
+        @Html.HiddenFor(model => model.操作id)
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

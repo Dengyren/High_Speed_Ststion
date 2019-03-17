@@ -1,0 +1,194 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+</head>
+<body style="height: 100%;">
+    <p id="money" style="display:none"></p>
+    <p id="recharge"style="display:none"></p>
+    <p id="deduction"style="display:none"></p>
+    <div class="col-lg-6">
+        <div id="container" style="height: 750%; margin-top:10%">
+
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div id="container1" style="height: 650%; margin-top:10%">
+
+        </div>
+    </div>
+
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+    <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var mycars = new Array();
+            var mymoney = new Array()
+            $.ajax({
+                type: "POST",//请求方式
+                url: '/Home/Home/GetMsg',
+                dataType: "json",
+                async: false,
+                data: {
+
+                },
+                success: function (data) {
+                    var i = 0;
+                    for (var r in data) {
+                        if (r == 1)
+                            $("#money").text(data[r]);
+                        else if (r == 2)
+                            $("#recharge").text(data[r]);
+                        else if (r == 3)
+                            $("#deduction").text(data[r]);
+                        else {
+                            mycars[i] = r;
+                            mymoney[i] = data[r];
+                            i++;
+                        }
+
+                    }
+                }
+            });
+            var param = [{ value: $("#money").text(), name: '充值', selected: true }, { value: $("#recharge").text(), name: '扣费' }, { value: $("#deduction").text(), name: '余额' }];
+            var param1 = [{ value: $("#money").text(), name: '充值' }, { value: $("#recharge").text(), name: '扣费' }, { value: $("#deduction").text(), name: '余额' }];
+            var dom = document.getElementById("container");
+            var myChart = echarts.init(dom);
+            var app = {};
+            option = null;
+            app.title = '嵌套环形图';
+
+            option = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b}: {c} ({d}%)"
+                },
+                legend: {
+                    orient: 'vertical',
+                    x: 'left',
+                    data: ['充值', '扣费', '余额']
+                },
+                series: [
+                    {
+                        name: '金额',
+                        type: 'pie',
+                        selectedMode: 'single',
+                        radius: [0, '30%'],
+
+                        label: {
+                            normal: {
+                                position: 'inner'
+                            }
+                        },
+                        labelLine: {
+                            normal: {
+                                show: false
+                            }
+                        },
+                        data: param
+                    },
+                    {
+                        name: '金额',
+                        type: 'pie',
+                        radius: ['40%', '55%'],
+                        label: {
+                            normal: {
+                                formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
+                                backgroundColor: '#eee',
+                                borderColor: '#aaa',
+                                borderWidth: 1,
+                                borderRadius: 4,
+                                // shadowBlur:3,
+                                // shadowOffsetX: 2,
+                                // shadowOffsetY: 2,
+                                // shadowColor: '#999',
+                                // padding: [0, 7],
+                                rich: {
+                                    a: {
+                                        color: '#999',
+                                        lineHeight: 22,
+                                        align: 'center'
+                                    },
+                                    // abg: {
+                                    //     backgroundColor: '#333',
+                                    //     width: '100%',
+                                    //     align: 'right',
+                                    //     height: 22,
+                                    //     borderRadius: [4, 4, 0, 0]
+                                    // },
+                                    hr: {
+                                        borderColor: '#aaa',
+                                        width: '100%',
+                                        borderWidth: 0.5,
+                                        height: 0
+                                    },
+                                    b: {
+                                        fontSize: 16,
+                                        lineHeight: 33
+                                    },
+                                    per: {
+                                        color: '#eee',
+                                        backgroundColor: '#334455',
+                                        padding: [2, 4],
+                                        borderRadius: 2
+                                    }
+                                }
+                            }
+                        },
+                        data: param1
+                    }
+                ]
+            };;
+            if (option && typeof option === "object") {
+                myChart.setOption(option, true);
+            }
+
+            var dom = document.getElementById("container1");
+            var myChart = echarts.init(dom);
+            var app = {};
+            option = null;
+            option = {
+                title: {
+                    text: '车辆状态统计表',
+                    left: 'center',
+                    top: 0,
+                    textStyle: {
+                        color: '#789'
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    data: mycars,
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [{
+                    data: mymoney,
+                    type: 'bar'
+                }]
+            };
+            ;
+            if (option && typeof option === "object") {
+                myChart.setOption(option, true);
+            }
+
+        });
+    </script>
+</body>
+</html>
+

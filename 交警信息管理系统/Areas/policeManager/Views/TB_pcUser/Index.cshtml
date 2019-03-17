@@ -1,0 +1,260 @@
+﻿@model IEnumerable<DAL.TB_pcUser>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="panel panel-default" style="margin-top: 20px;">
+        <h1 class="panel-heading" style="background-color:white">警员管理</h1>
+        <div class="clearfix"></div>
+    </div>
+    <div class="panel panel-default">
+        <div class="col-md-12" style="margin-top:30px;">
+            <div class="form-group">
+                @*警员编号输入框*@
+                <label class="col-sm-1 control-label" style="font-size:medium;font-family:bold;">警员编号：</label>
+                <div class="col-sm-2">
+                    <input type="text" name="" class="form-control" placeholder="请输入警员编号" id="search_Id">
+                </div>
+                @*姓名输入框*@
+                <label class="col-sm-1 control-label" style="font-size:medium;font-family:bold;">姓名：</label>
+                <div class="col-sm-2">
+                    <input type="text" name="" class="form-control" placeholder="请输入姓名" id="search_Name">
+                </div>
+
+                <div class="fl re-search" style="text-align:left;">
+                    <button type="button" id="btn_query" class="btn btn-primary">查询</button>
+                </div>
+            </div>
+        </div>
+
+        @*bootstrap-table*@
+        <div class="x_content" style="margin-top:50px;">
+            <div class="ibox-content">
+                <table id="tb_pcInfo">   </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="queryInfo2" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    &times;
+                </button>
+                <h3 class="modal-title" id="myModalTitle">未提交审核信息</h3>
+            </div>
+            <div class="modal-body">
+                <form id="defaultForm" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" style="margin-top:0">姓名：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" id="examine_input1" type="text" readonly="readonly" style="background-color:white" />
+                        </div>
+                        <label class="col-sm-2 control-label" style="margin-top:0">籍贯：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" id="examine_input3" type="text" readonly="readonly" style="background-color:white" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" style="margin-top:0">手机号码：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" id="examine_input2" type="text" readonly="readonly" style="background-color:white" />
+                        </div>
+                        <label class="col-sm-2 control-label" style="margin-top:0">驾驶证号码：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" id="examine_input6" type="text" readonly="readonly" style="background-color:white" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" style="margin-top:0">身份证号码：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" id="examine_input4" type="text" readonly="readonly" style="background-color:white" />
+                        </div>
+                        <label class="col-sm-2 control-label" style="margin-top:0">用户身份证照片：</label>
+                        <div class="col-sm-3">
+                            <img src="" id="examine_input5" class="img-thumbnail" alt="用户身份证照片" width="180" height="80">
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="car1" style="display:none">
+                        <label class="col-sm-2 control-label" style="margin-top:0">车牌1：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" id="car_input1" type="text" readonly="readonly" style="background-color:white" />
+                        </div>
+                        <label class="col-sm-2 control-label" style="margin-top:0">车牌照片：</label>
+                        <div class="col-sm-5">
+                            <img src="" id="car_f1" class="img-thumbnail" alt="车牌照片" width="160" height="80">
+                            <img src="" id="car_b1" class="img-thumbnail" alt="车牌照片" width="160" height="80">
+                        </div>
+                    </div>
+                    <div class="form-group" id="car2" style="display:none">
+                        <label class="col-sm-2 control-label" style="margin-top:0">车牌2：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" id="car_input2" type="text" readonly="readonly" style="background-color:white" />
+                        </div>
+                        <label class="col-sm-2 control-label" style="margin-top:0">车牌照片：</label>
+                        <div class="col-sm-5">
+                            <img src="" id="car_f2" class="img-thumbnail" alt="车牌照片" width="160" height="80">
+                            <img src="" id="car_b2" class="img-thumbnail" alt="车牌照片" width="160" height="80">
+                        </div>
+                    </div>
+                    <div class="form-group" id="car3" style="display:none">
+                        <label class="col-sm-2 control-label" style="margin-top:0">车牌3：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" id="car_input3" type="text" readonly="readonly" style="background-color:white" />
+                        </div>
+                        <label class="col-sm-2 control-label" style="margin-top:0">车牌照片：</label>
+                        <div class="col-sm-5">
+                            <img src="" id="car_f3" class="img-thumbnail" alt="车牌照片" width="160" height="80">
+                            <img src="" id="car_b3" class="img-thumbnail" alt="车牌照片" width="160" height="80">
+                        </div>
+                    </div>
+                    <div class="form-group" id="car4" style="display:none">
+                        <label class="col-sm-2 control-label" style="margin-top:0">车牌4：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" id="car_input4" type="text" readonly="readonly" style="background-color:white" />
+                        </div>
+                        <label class="col-sm-2 control-label" style="margin-top:0">车牌照片：</label>
+                        <div class="col-sm-5">
+                            <img src="" id="car_f4" class="img-thumbnail" alt="车牌照片" width="160" height="80">
+                            <img src="" id="car_b4" class="img-thumbnail" alt="车牌照片" width="160" height="80">
+                        </div>
+                    </div>
+                    <div class="form-group" id="car5" style="display:none">
+                        <label class="col-sm-2 control-label" style="margin-top:0">车牌5：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" id="car_input5" type="text" readonly="readonly" style="background-color:white" />
+                        </div>
+                        <label class="col-sm-2 control-label" style="margin-top:0">车牌照片：</label>
+                        <div class="col-sm-5">
+                            <img src="" id="car_f5" class="img-thumbnail" alt="车牌照片" width="160" height="80">
+                            <img src="" id="car_b5" class="img-thumbnail" alt="车牌照片" width="160" height="80">
+                        </div>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" id="btn_examine" value="1">提交审核</button>
+                    <button type="button" class="btn btn-default" id="myclose" data-dismiss="modal"> 关闭</button>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal -->
+</div>
+
+
+<script>
+
+    $(document).ready(function () {
+        var oTable
+        var oButtonInit
+        $(function () {
+            //1.初始化Table
+            oTable = new TableInit();
+            oTable.Init();
+        });
+        var TableInit = function () {
+            var oTableInit = new Object();
+            //初始化Table
+            oTableInit.Init = function () {
+                $('#tb_pcInfo').bootstrapTable({
+                    url: '/policeManager/TB_pcUser/Table',         //请求后台的URL（*）
+                    method: 'get',                      //请求方式（*）
+                    toolbar: '#toolbar',                //工具按钮用哪个容器
+                    striped: true,                      //是否显示行间隔色
+                    cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                    pagination: true,                   //是否显示分页（*）
+                    sortable: true,                     //是否启用排序
+                    sortOrder: "asc",                   //排序方式
+                    queryParams: oTableInit.queryParams,//传递参数（*）
+                    sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                    height: 510,
+                    pageNumber: 1,                       //初始化加载第一页，默认第一页
+                    pageSize: 10,                       //每页的记录行数（*）
+                    pageList: [5],                     //可供选择的每页的行数（*）
+                    showColumns: false,                // 列
+                    pagination: true,                  //分页
+                    paginationLoop: false,
+                    paginationPreText: '上一页',
+                    paginationNextText: '下一页',
+                    search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                    strictSearch: true,
+                    clickToSelect: true,                //是否启用点击选中行
+                    uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                    showToggle: false,                    //是否显示详细视图和列表视图的切换按钮
+                    cardView: false,                    //是否显示详细视图
+                    detailView: false,                   //是否显示父子表
+                    columns: [
+                        {
+                            field: '警员编号',
+                            title: '警员编号'
+                        },
+                        {
+                            field: '姓名',
+                            title: '姓名'
+                        },
+                        {
+                            field: '性别',
+                            title: '性别'
+                        },
+                        {
+                            field: '年龄',
+                            title: '年龄'
+                        },
+                        {
+                            field: '归属',
+                            title: '归属'
+                        }
+
+                    ]
+                });
+            };
+
+            //得到查询的参数
+            oTableInit.queryParams = function (params) {
+                var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                    limit: params.limit,   //页面大小
+                    offset: params.offset,  //页码
+                    id: $('#search_Id').val(),
+                    Name: $('#search_Name').val(),
+                };
+                return temp;
+
+            };
+            return oTableInit;
+
+        };
+
+        var ButtonInit = function () {
+            var oInit = new Object();
+            var postdata = {};
+
+            oInit.Init = function () {
+                //初始化页面上面的按钮事件
+
+            };
+
+            return oInit;
+        };
+
+        //使用bootstrap-table本身的搜索只是Client的搜索，而且只能一个字段的查询
+        //在多个字段查询的情况下，只能自己去写搜索，refresh刷新远程服务器数据，可以设置
+        $("#btn_query").click(function () {
+            $('#tb_pcInfo').bootstrapTable('refresh', {
+                id: $('#search_Id').val(),
+                Name: $('#search_Name').val(),
+            });
+        })
+    })
+</script>

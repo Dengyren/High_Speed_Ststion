@@ -1,0 +1,139 @@
+﻿@model DAL.TB_MTC
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/step.css" rel="stylesheet" />
+<script src="~/js/jquery.min.js"></script>
+<script src="~/js/step.js"></script>
+<style>
+
+    .main {
+        width: 100%;
+        margin: 50px 0;
+    }
+    .progressbar li {
+        font-size:14px
+    }
+
+
+</style>
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="panel panel-default" style="margin-top: 60px;margin-right:30px;margin-left:20px">
+            <h1 class="panel-heading" style="background-color:white">车辆路径详情</h1>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-default" style="margin-right:30px;margin-left:20px">
+                <div class="form-horizontal">
+                    <dl class="dl-horizontal" style="font-size:20px;font-weight:bold">
+                        <dt style="display:none">
+                            @Html.DisplayNameFor(model => model.id)：
+                        </dt>
+
+                        <dd style="display:none" id="id">
+                            @Html.DisplayFor(model => model.id)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.车牌号码)：
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.车牌号码)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.进站时间)：
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.进站时间)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.出站时间)：
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.出站时间)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.进站点)：
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.进站点)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.出站点)：
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.出站点)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.扣费金额)：
+                        </dt>
+
+                        <dd>
+                            ¥@Html.DisplayFor(model => model.扣费金额)
+                        </dd>
+
+                        <dt>
+                           详细路径：
+                        </dt>
+                    </dl>
+                    <div class="main">
+                        <div class="steps" ></div>
+</div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+    <p>
+        <div class="form-actions no-color" style="float:right;margin-right:30px">
+            <input type="button" name="submit" id="my_back" class="btn btn-info" value="返回">
+        </div>
+    </p>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(function () {
+                initStep();
+            });
+
+            $.ajax({
+                type: "POST",//请求方式
+                url: '/User_MTC/TB_MTC/ShowPath',
+                dataType: "json",
+                data: {
+                    id: $("#id").text()
+                },
+                success: function (data) {
+                    $(".steps").step({
+                        stepNames: data,
+                    });
+                    for (var r in data) {
+                        $(".steps").step("next");
+                    }
+
+                }
+            });
+
+
+            $("#my_back").click(function () {
+                window.location.replace("/User_MTC/TB_MTC/Index");
+            });
+        });
+    </script>

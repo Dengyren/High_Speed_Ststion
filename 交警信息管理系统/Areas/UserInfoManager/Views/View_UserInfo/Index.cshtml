@@ -1,0 +1,358 @@
+﻿@model IEnumerable<DAL.View_UserInfo>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="panel panel-default" style="margin-top: 20px;">
+        <h1 class="panel-heading" style="background-color:white">用户信息管理</h1>
+        <div class="clearfix"></div>
+    </div>
+    <div class="panel panel-default">
+        @*身份证号输入框*@
+        <div class="col-md-12"style="margin-top:30px;">
+            <div class="form-group">
+                <label class="col-sm-1 control-label" style="font-size:medium;font-family:bold;">身份证号码：</label>
+                <div class="col-sm-3">
+                    <input type="text" name="" class="form-control" placeholder="请输入身份证号码" id="search_id">
+                </div>
+                <div class="fl re-search" style="text-align:left;">
+                    <button type="button" id="btn_query" class="btn btn-primary">查询</button>
+                </div>
+            </div>
+        </div>
+
+        @*bootstrap-table*@
+        <div class="x_content" style="margin-top:50px;">
+            <div class="ibox-content">
+                <table id="tb_UserInfo">   </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="queryInfo" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times;</button>
+                <h2 class="modal-title" id="myModalTitle">用户详细信息</h2>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <span class="input-group-addon" style="width:100px;">用户编号</span>
+                        <input type="text" class="form-control" id="id" readonly="readonly">
+                    </div>
+                    <br />
+                    <div class="input-group">
+                        <span class="input-group-addon" style="width:100px;">用户姓名</span>
+                        <input type="text" class="form-control" id="Name" readonly="readonly">
+                    </div>
+                    <br />
+                    <div class="input-group">
+                        <span class="input-group-addon" style="width:100px;">身份证号码</span>
+                        <input type="text" class="form-control" id="ID" readonly="readonly">
+                    </div>
+                    <br />
+                    <div class="input-group">
+                        <span class="input-group-addon" style="width:100px;">手机号码</span>
+                        <input type="text" class="form-control" id="phone" readonly="readonly">
+                    </div>
+                    <br />
+                    <div class="input-group">
+                        <span class="input-group-addon" style="width:100px;">籍贯</span>
+                        <input type="text" class="form-control" id="address" readonly="readonly">
+                    </div>
+                    <br />
+                    <div class="input-group">
+                        <span class="input-group-addon" style="width:100px;">驾驶证号码</span>
+                        <input type="text" class="form-control" id="CarNum" readonly="readonly">
+                    </div>
+                    <br />
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <span class="input-group-addon" style="width:100px;">身份证照片</span>
+                        <img class="form-control" id="id-photo" readonly="readonly"style="height:270px;width:300px;">
+                    </div>
+                </div>
+               
+
+                <div class="modal-footer"style="margin-top:300px;">
+                    <button type="button" class="btn btn-default" id="myclose" data-dismiss="modal"> 关闭</button>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal -->
+        </div>
+    </div>
+</div>
+<script>
+
+    $(document).ready(function () {
+        var oTable
+        var oButtonInit
+        $(function () {
+            //1.初始化Table
+            oTable = new TableInit();
+            oTable.Init();
+        });
+        var TableInit = function () {
+            var oTableInit = new Object();
+            //初始化Table
+            oTableInit.Init = function () {
+                $('#tb_UserInfo').bootstrapTable({
+                    url: '/UserInfoManager/View_UserInfo/Table',         //请求后台的URL（*）
+                    method: 'get',                      //请求方式（*）
+                    toolbar: '#toolbar',                //工具按钮用哪个容器
+                    striped: true,                      //是否显示行间隔色
+                    cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                    pagination: true,                   //是否显示分页（*）
+                    sortable: true,                     //是否启用排序
+                    sortOrder: "asc",                   //排序方式
+                    queryParams: oTableInit.queryParams,//传递参数（*）
+                    sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                    height: 510,
+                    pageNumber: 1,                       //初始化加载第一页，默认第一页
+                    pageSize: 10,                       //每页的记录行数（*）
+                    pageList: [5],                     //可供选择的每页的行数（*）
+                    showColumns: false,                // 列
+                    pagination: true,                  //分页
+                    paginationLoop: false,
+                    paginationPreText: '上一页',
+                    paginationNextText: '下一页',
+                    search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                    strictSearch: true,
+                    clickToSelect: true,                //是否启用点击选中行
+                    uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                    showToggle: false,                    //是否显示详细视图和列表视图的切换按钮
+                    cardView: false,                    //是否显示详细视图
+                    detailView: false,                   //是否显示父子表
+                    columns: [
+                        {
+                            field: '用户编号',
+                            title: '用户编号'
+                        },
+                        {
+                            field: '身份证号码',
+                            title: '身份证号码'
+                        },
+                        {
+                            field: '姓名',
+                            title: '姓名'
+                        },
+                        {
+                            field: '籍贯',
+                            title: '籍贯'
+                        },
+                        {
+                            field: '用户编号',
+                            title: '用户操作',
+                            formatter: operation
+                        }
+
+                    ]
+                });
+            };
+
+            //得到查询的参数
+            oTableInit.queryParams = function (params) {
+                var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                    limit: params.limit,   //页面大小
+                    offset: params.offset,  //页码
+                    id: $('#search_id').val(),
+
+                };
+                return temp;
+
+            };
+            return oTableInit;
+
+        };
+
+        var ButtonInit = function () {
+            var oInit = new Object();
+            var postdata = {};
+
+            oInit.Init = function () {
+                //初始化页面上面的按钮事件
+
+            };
+
+            return oInit;
+        };
+
+        operation = function (value, row, index) {
+            return ' <input type="button" id="detail" class="btn btn-warning" onclick="query(' + value + ')" value="详细信息">' +
+                ' <input type="button" id="Into_Black" class="btn btn-danger" value="加入黑名单" style="margin-left:10">';
+        }
+
+        //使用bootstrap-table本身的搜索只是Client的搜索，而且只能一个字段的查询
+        //在多个字段查询的情况下，只能自己去写搜索，refresh刷新远程服务器数据，可以设置
+        $("#btn_query").click(function () {
+            $('#tb_UserInfo').bootstrapTable('refresh', {
+                id: $("#search_id").val(),
+
+            });
+        });
+
+        query = function (id) {
+            //alert(id)
+            $.ajax({
+                url: "/UserInfoManager/View_UserInfo/GetUserMessage",
+                type: "post",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    "id": id,
+                }),
+                success: function (data) {
+                    $("#id").val(data.用户编号)
+                    $("#Name").val(data.姓名)
+                    $("#ID").val(data.身份证号码)
+                    $("#phone").val(data.手机号码)
+                    $("#address").val(data.籍贯)
+                    $("#CarNum").val(data.驾驶证号码)
+                    $("#id-photo").attr("src", data.身份证照片 + '?' + Math.random())
+                    $("#queryInfo").modal('show')
+                },
+            });
+        }
+    })
+</script>
+
+@*<script>
+
+    $(document).ready(function () {
+        var oTable
+        var oButtonInit
+        $(function () {
+            //1.初始化Table
+            oTable = new TableInit();
+            oTable.Init();
+        });
+        var TableInit = function () {
+            var oTableInit = new Object();
+            //初始化Table
+            oTableInit.Init = function () {
+                $('#tb_UserInfo').bootstrapTable({
+                    url: '/UserInfoManager/View_UserInfo/Table',         //请求后台的URL（*）
+                    method: 'get',                      //请求方式（*）
+                    toolbar: '#toolbar',                //工具按钮用哪个容器
+                    striped: true,                      //是否显示行间隔色
+                    cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                    pagination: true,                   //是否显示分页（*）
+                    sortable: true,                     //是否启用排序
+                    sortOrder: "asc",                   //排序方式
+                    queryParams: oTableInit.queryParams,//传递参数（*）
+                    sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                    height: 600,
+                    pageNumber: 1,                       //初始化加载第一页，默认第一页
+                    pageSize: 10,                       //每页的记录行数（*）
+                    pageList: [5],                     //可供选择的每页的行数（*）
+                    showColumns: false,                // 列
+                    pagination: true,                  //分页
+                    paginationLoop: false,
+                    paginationPreText: '上一页',
+                    paginationNextText: '下一页',
+                    search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                    strictSearch: true,
+                    clickToSelect: true,                //是否启用点击选中行
+                    uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                    showToggle: false,                    //是否显示详细视图和列表视图的切换按钮
+                    cardView: false,                    //是否显示详细视图
+                    detailView: false,                   //是否显示父子表
+                    columns: [
+                        {
+                            field: '用户编号',
+                            title: '用户编号'
+                        },
+                        {
+                            field: '身份证号码',
+                            title: '身份证号码'
+                        },
+                        {
+                            field: '姓名',
+                            title: '姓名'
+                        },
+                        {
+                            field: '籍贯',
+                            title: '籍贯'
+                        },
+                        {
+                            field: '用户编号',
+                            title: '用户操作',
+                            formatter: operation
+                        }
+                    ]
+                });
+            };
+
+            //得到查询的参数
+            oTableInit.queryParams = function (params) {
+                var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                    limit: params.limit,   //页面大小
+                    offset: params.offset,  //页码
+                    id: $('#search_id').val(),
+
+                };
+                return temp;
+
+            };
+            return oTableInit;
+
+        };
+
+        var ButtonInit = function () {
+            var oInit = new Object();
+            var postdata = {};
+
+            oInit.Init = function () {
+                //初始化页面上面的按钮事件
+
+            };
+
+            return oInit;
+        };
+
+        operation = function (value, row, index) {
+            return ' <input type="button" id="detail" class="btn btn-warning" onclick="query(' + value + ')" value="详细信息">' +
+                ' <input type="button" id="Into_Black" class="btn btn-danger" value="加入黑名单" style="margin-left:10">';
+        }
+
+        //使用bootstrap-table本身的搜索只是Client的搜索，而且只能一个字段的查询
+        //在多个字段查询的情况下，只能自己去写搜索，refresh刷新远程服务器数据，可以设置
+        $("#btn_query").click(function () {
+            $('#tb_UserInfo').bootstrapTable('refresh', {
+                id: $("#search_id").val(),
+
+            });
+        });
+
+        query = function (id) {         
+            //alert(id)
+            $.ajax({
+                url: "/UserInfoManager/View_UserInfo/GetUserMessage",
+                type: "post",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    "id": id,
+                }),
+                success: function (data) {
+                    $("#id").val(data.用户编号)
+                    $("#Name").val(data.姓名)
+                    $("#ID").val(data.身份证号码)
+                    $("#phone").val(data.手机号码)
+                    $("#address").val(data.籍贯)
+                    $("#CarNum").val(data.驾驶证号码)
+                    $("#id-photo").attr("src", data.身份证照片 + '?' + Math.random())
+                    $("#queryInfo").modal('show')
+                },
+            });
+        }
+    })
+</script>*@

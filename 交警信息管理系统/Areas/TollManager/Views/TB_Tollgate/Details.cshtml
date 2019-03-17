@@ -1,0 +1,35 @@
+﻿@model DAL.TB_Tollgate
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TB_Tollgate</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.站点名称)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.站点名称)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.收费金额)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.收费金额)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

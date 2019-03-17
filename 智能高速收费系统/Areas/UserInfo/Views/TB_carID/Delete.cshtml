@@ -1,0 +1,117 @@
+﻿@model DAL.TB_carID
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="panel panel-default" style="margin-top: 60px;margin-right:30px;margin-left:20px">
+        <h1 class="panel-heading" style="background-color:white">删除车辆</h1>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="panel panel-default" style="margin-right:30px;margin-left:20px">
+        <div class="form-horizontal">
+            <dl class="dl-horizontal"style=" display:none">
+                <dd id="carid">
+                    @Html.DisplayFor(model => model.id)
+                </dd>
+
+            </dl>
+            <div class="form-group">
+                @Html.LabelFor(model => model.车牌号, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.车牌号, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "background:white" } })
+                    @Html.ValidationMessageFor(model => model.车牌号, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.车牌照片前, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10" style="display :none">
+                    @Html.EditorFor(model => model.车牌照片前, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.车牌照片前, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-10">
+                    <a class="thumbnail" style="width:50%;height:40%;">
+                        <img src="" class="img-responsive1" style="width:50%;height:200px">
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.车牌照片后, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10" style="display :none">
+                    @Html.EditorFor(model => model.车牌照片后, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.车牌照片后, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-10">
+                    <a class="thumbnail" style="width:50%;height:40%;">
+                        <img src="" class="img-responsive2" style="width:50%;height:200px">
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@using(Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color" style="float:right;margin-right:30px">
+        <input type="button" name="submit" id="my_del" class="btn btn-danger" value="确定删除">
+        <input type="button" name="submit" id="my_back" class="btn btn-info" value="返回">
+    </div>
+}
+
+
+<script>
+
+    $(function () {
+        $.ajax({
+            type: "POST",//请求方式
+            url: '/UserInfo/TB_carID/GetDelCar',
+            dataType: "json",
+            data: {
+                "id": $("#carid").text(),
+            },
+            success: function (data) {
+                var i = 1;
+                for (var r in data) {
+                    $(".img-responsive" + i).attr("src", data[r]);
+                    i++;
+                }
+            }
+        });
+
+
+        $("#my_del").click(function () {
+            $.ajax({
+                type: "POST",//请求方式
+                url: '/UserInfo/TB_carID/DelCar',
+                dataType: "json",
+                data: {
+                    "id": $("#carid").text(),
+                },
+                success: function (data) {
+                    if (data) {
+                        window.location.replace("/UserInfo/TB_carID/Index");
+                    }
+                }
+            })
+        });
+
+        $("#my_back").click(function () {
+            window.location.replace("/UserInfo/TB_carID/Index");
+        });
+    });
+
+
+
+</script>
+

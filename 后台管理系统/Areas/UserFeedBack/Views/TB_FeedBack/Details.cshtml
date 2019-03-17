@@ -1,0 +1,59 @@
+﻿@model DAL.TB_FeedBack
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TB_FeedBack</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.日期)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.日期)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.用户编号)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.用户编号)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.反馈内容)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.反馈内容)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.反馈类型)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.反馈类型)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.状态)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.状态)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,83 @@
+﻿@model DAL.TB_UserAudit
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TB_UserAudit</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.用户编号)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.用户编号)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.身份证号码)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.身份证号码)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.姓名)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.姓名)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.驾驶证号码)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.驾驶证号码)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.籍贯)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.籍贯)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.手机号码)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.手机号码)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.身份证照片)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.身份证照片)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.状态编号)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.状态编号)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

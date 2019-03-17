@@ -1,0 +1,44 @@
+﻿@model DAL.View_CarInfo
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>View_CarInfo</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.id)
+
+        @Html.HiddenFor(model => model.用户编号)
+
+        @Html.HiddenFor(model => model.姓名)
+
+        @Html.HiddenFor(model => model.身份证号码)
+
+        @Html.HiddenFor(model => model.车牌号)
+
+        @Html.HiddenFor(model => model.状态编号)
+
+        @Html.HiddenFor(model => model.车牌照片后)
+
+        @Html.HiddenFor(model => model.车牌照片前)
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

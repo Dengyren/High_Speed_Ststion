@@ -1,0 +1,181 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="panel panel-default" style="margin-top: 60px;margin-right:30px;margin-left:20px">
+        <h1 class="panel-heading" style="background-color:white">过站记录</h1>
+    </div>
+    <div class="panel panel-default" id="my_tb" style="margin-right:30px;margin-left:20px">
+        <div class="x_panel">
+            <div class="x_content">
+                <form id="formSearch" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-sm-1" for="txt_search_statu" style="font-size:18px;margin-top:0">车牌号</label>
+                        <div class="col-sm-3">
+                            <select class="form-control re-search" id="tollID" name="tollID">
+                                <option selected></option>
+                                @foreach(var item in ViewBag.car)
+                                {
+                                    <option value=" @item.Key"> @item.Value</option>
+                                }
+                            </select>
+                        </div>
+                        <label class="control-label col-sm-1" for="txt_search_statu" style="font-size:18px;margin-top:0">站点</label>
+                        <div class="col-sm-3">
+
+                            <input id="toll" name="toll" type="text" class="form-control fl re-search" placeholder="高速收费站名" />
+                        </div>
+                        <div class="col-sm-1" style="text-align:left;">
+                            <button type="button" style="margin-left:30px;margin-top:0" id="btn_search2" class="btn btn-primary">查询</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="x_content">
+                <table id="tb_TollID" style="font-size:15px"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var oTable;
+        var oButtonInit;
+        $(".fixed-table-header").remove();
+        $(function () {
+            //1.初始化Table
+            $("[data-toggle='tooltip']").tooltip();
+            oTable = new TableInit();
+            oTable.Init();
+
+            //2.初始化Button的点击事件
+            oButtonInit = new ButtonInit();
+            oButtonInit.Init();
+
+        });
+        var TableInit = function () {
+            var oTableInit = new Object();
+            //初始化Table
+            oTableInit.Init = function () {
+                $('#tb_TollID').bootstrapTable({
+                    url: '/User_MTC/TB_MTC/Table',         //请求后台的URL（*）
+                    method: 'get',                      //请求方式（*）
+                    toolbar: '#toolbar',                //工具按钮用哪个容器
+                    striped: true,                      //是否显示行间隔色
+                    cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                    pagination: true,                   //是否显示分页（*）
+                    sortable: true,                     //是否启用排序
+                    sortOrder: "asc",                   //排序方式
+                    sortStable: true,
+                    queryParams: oTableInit.queryParams,//传递参数（*）
+                    sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                    pageNumber: 1,                       //初始化加载第一页，默认第一页
+                    pageSize: 8,                       //每页的记录行数（*）
+                    pageList: [10],                     //可供选择的每页的行数（*）
+                    search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                    strictSearch: true,
+                    showColumns: true,                  //是否显示所有的列
+                    showRefresh: true,                  //是否显示刷新按钮
+                    minimumCountColumns: 2,             //最少允许的列数
+                    clickToSelect: true,                //是否启用点击选中行
+                    uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+                    showToggle: false,                    //是否显示详细视图和列表视图的切换按钮
+                    cardView: false,                    //是否显示详细视图
+                    detailView: false,                   //是否显示父子表
+                    columns: [
+                        {
+                            field: '车牌号码',
+                            title: '车牌号码'
+                        },
+                        {
+                            field: '进站时间',
+                            title: '进站时间'
+                        },
+                        {
+                            field: '出站时间',
+                            title: '出站时间'
+                        },
+                        {
+                            field: '进站点',
+                            title: '进站点'
+                        },
+                        {
+                            field: '出站点',
+                            title: '出站点'
+                        },
+                        {
+                            field: '扣费金额',
+                            title: '扣费金额'
+                        },
+                        {
+                            field: 'id',
+                            title: '用户操作',
+                            formatter: operation
+                        }
+                    ]
+
+                });
+            };
+
+            //得到查询的参数
+            oTableInit.queryParams = function (params) {
+                $(".fixed-table-header").remove();
+                var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                    limit: params.limit,   //页面大小
+                    offset: params.offset,  //页码
+                    CarID: $("#tollID").val(),
+                    tollName: $("#toll").val()
+                };
+                return temp;
+
+            };
+            return oTableInit;
+
+        };
+
+        operation = function (value, row, index) {
+            return '<a href="/User_MTC/TB_MTC/Details/' + value + '"><input type="button" name="submit" id="edit" class="btn btn-success" value="详情"style="margin-top:0"></a>'
+        }
+
+        var ButtonInit = function () {
+            var oInit = new Object();
+            var postdata = {};
+
+            oInit.Init = function () {
+                //初始化页面上面的按钮事件
+            };
+
+            return oInit;
+        };
+
+        $("#btn_search1").click(function () {
+            $('#tb_TollID').bootstrapTable('refresh', {
+                CarID: $("#tollID").val(),
+                tollName: $("#toll").val()
+            });
+        })
+
+        $("#btn_search2").click(function () {
+            $('#tb_TollID').bootstrapTable('refresh', {
+                CarID: $("#tollID").val(),
+                tollName: $("#toll").val()
+            });
+            $("#tollID").val("");
+            $("#toll").val("");
+        })
+
+
+
+
+    });
+
+</script>

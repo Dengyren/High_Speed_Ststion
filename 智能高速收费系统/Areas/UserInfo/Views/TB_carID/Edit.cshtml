@@ -1,0 +1,221 @@
+﻿@model DAL.TB_carID
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="panel panel-default" style="margin-top: 60px;margin-right:30px;margin-left:20px">
+        <h1 class="panel-heading" style="background-color:white">编辑车牌信息</h1>
+        <div class="clearfix"></div>
+    </div>
+</div>
+@using(Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="panel panel-default" style="margin-right:30px;margin-left:20px">
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.id)
+
+                <div class="form-group" style="display:none">
+                    @Html.LabelFor(model => model.id, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.id, new { htmlAttributes = new { @class = "form-control", id = "carid" } })
+                        @Html.ValidationMessageFor(model => model.id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.车牌号, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10"  id="my_car">
+                        @Html.EditorFor(model => model.车牌号, new { htmlAttributes = new { @class = "form-control", id = "car" } })
+                        @Html.ValidationMessageFor(model => model.车牌号, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.车牌照片前, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10" style="display:none">
+                        @Html.EditorFor(model => model.车牌照片前, new { htmlAttributes = new { @class = "form-control", id = "input1" } })
+                        @Html.ValidationMessageFor(model => model.车牌照片前, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-sm-7 col-md-6">
+                        <div class="thumbnail">
+                            <img src="" id="photo1" alt="车牌照片（前）"
+                                 style="width:300px;height:150px">
+                            <div style="display:inline-block">
+                                <input type="button" name="submit" id="btn_import1" class="btn btn-warning" value="更换" style="margin-left:550px">
+                                <div class="container kv-main" hidden>
+                                    <br>
+                                    <form enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <input id="file1" type="file" multiple class="file-loading" name="file">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.车牌照片后, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10" style="display:none">
+                        @Html.EditorFor(model => model.车牌照片后, new { htmlAttributes = new { @class = "form-control", id = "input2" } })
+                        @Html.ValidationMessageFor(model => model.车牌照片后, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-sm-7 col-md-6">
+                        <div class="thumbnail">
+                            <img src="" id="photo2" alt="车牌照片（后）"
+                                 style="width:300px;height:150px">
+                            <div style="display:inline-block">
+                                <input type="button" name="submit" id="btn_import2" class="btn btn-warning" value="更换" style="margin-left:550px">
+                                <div class="container kv-main" hidden>
+                                    <br>
+                                    <form enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <input id="file2" type="file" multiple class="file-loading" name="file">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-actions no-color" style="float:right;margin-right:30px">
+                <input type="button" name="submit" id="my_save" class="btn btn-success" value="保存">
+                <input type="button" name="submit" id="my_back" class="btn btn-info" value="返回">
+            </div>
+        </div>
+    </div>
+
+}
+
+<script>
+    $(function () {
+        $("#my_car").removeClass("has-warning");
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "postitionClass": "toast-top-full-width",
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+        for (var r = 1; r <= 2; r++) {
+            $("#photo" + r).attr("src", $("#input" + r).val() + '?' + Math.random());
+        }
+
+        $("#btn_import1").click(function () {
+            $("#file1").click();
+        });
+        $("#btn_import2").click(function () {
+            $("#file2").click();
+        });
+
+        $("#file1").fileinput({
+            uploadUrl: '/UserInfo/TB_carID/Carphoto_Import1',
+            allowedFileExtensions: ['jpg', 'png', 'gif'],
+            showBrowse: true,
+            showPreview: false,
+            showRemove: false,
+            overwriteInitial: false,
+            maxFileSize: 10000,
+            maxFilesNum: 1,
+            dropZoneEnabled: false,//是否显示拖拽区域
+            language: 'zh',
+            showUpload: false, //是否显示上传按钮
+            showCaption: true,//是否显示标题
+            uploadExtraData: function () {//向后台传递参数
+                var data = {
+                    "carID": $("#car").val() +"(前)",
+                };
+                return data;
+            },
+        }).on("filebatchselected", function (event, files) {//选择文件后处理事件直接上传
+            $("#file1").fileinput("upload");
+        }).on("fileuploaded", function (event, data, previewId, index) {
+            $("#input1").val(data.response);
+            $("#photo1").attr("src", data.response + '?' + Math.random());
+        });
+
+        $("#file2").fileinput({
+            uploadUrl: '/UserInfo/TB_carID/Carphoto_Import1',
+            allowedFileExtensions: ['jpg', 'png', 'gif'],
+            showBrowse: true,
+            showPreview: false,
+            showRemove: false,
+            overwriteInitial: false,
+            maxFileSize: 10000,
+            maxFilesNum: 1,
+            dropZoneEnabled: false,//是否显示拖拽区域
+            language: 'zh',
+            showUpload: false, //是否显示上传按钮
+            showCaption: true,//是否显示标题
+            uploadExtraData: function () {//向后台传递参数
+                var data = {
+                    "carID": $("#car").val() + "(后)",
+                };
+                return data;
+            },
+        }).on("filebatchselected", function (event, files) {//选择文件后处理事件直接上传
+            $("#file2").fileinput("upload");
+        }).on("fileuploaded", function (event, data, previewId, index) {
+            $("#input2").val(data.response);
+            $("#photo2").attr("src", data.response + '?' + Math.random());
+        });
+
+
+        $("#my_back").click(function () {
+            window.location.replace("/UserInfo/TB_carID/Index");
+        });
+
+
+        $("#my_save").click(function () {
+            if ($("#car").val() == "") {
+                toastr.error("车牌号不能为空");
+                $("#my_car").addClass("has-warning");
+                return false;
+            }
+            else {
+                var msg = {
+                    车牌号: $("#car").val(),
+                    车牌照片前: $("#input1").val(),
+                    车牌照片后: $("#input2").val(),
+                    id: $("#carid").val(),
+                };
+                $.ajax({
+                    type: "POST",//请求方式
+                    url: '/UserInfo/TB_carID/EditCar',
+                    dataType: "json",
+                    data: {
+                        "msg":msg
+                    },
+                    success: function (data) {
+                        if (data) {
+                            window.location.replace("/UserInfo/TB_carID/Index");
+                        }
+                    }
+                })
+            }
+
+        });
+
+
+
+    });
+
+
+</script>

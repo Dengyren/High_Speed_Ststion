@@ -1,0 +1,16 @@
+﻿/*说明输入框*/
+.declarecss{
+    width:100%;
+    height:100px;
+}
+
+/*说明输入框跟上传文件框*/
+.uploader{
+    width:70%;
+
+}
+
+/*使上传文件框居中*/
+.uploadCenter{
+    margin-left:15%;
+}

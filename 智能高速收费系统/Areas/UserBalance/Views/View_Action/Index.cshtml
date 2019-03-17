@@ -1,0 +1,349 @@
+﻿
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/css/main.css" rel="stylesheet" />
+
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="panel panel-default" style="margin-top: 20px;margin-right:30px;margin-left:20px">
+        <h1 class="panel-heading" style="background-color:white">账户余额</h1>
+    </div>
+    <div class="panel panel-default" id="my_tb" style="margin-right:30px;margin-left:20px">
+        <div class="x_panel">
+            <div class="x_content">
+                <form id="formSearch" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-sm-1" for="txt_search_statu" style="font-size:18px;margin-top:0">余额(元)</label>
+                        <label class="control-label col-sm-1" for="txt_search_statu" style="font-size:18px;margin-top:0;color:red">@ViewBag.balance</label>
+                        <div class="col-sm-4" style="text-align:left;">
+                            <button type="button" style="margin-left:30px;margin-top:0" id="btn_query" class="btn btn-success">充值</button>
+                        </div>
+                        <label class="control-label col-sm-1" for="txt_search_statu" style="font-size:18px;margin-top:0">操作动作</label>
+                        <div class="col-sm-3">
+                            <select class="form-control re-search" id="Useraction" name="Useraction">
+                                <option selected></option>
+                                @foreach(var item in ViewBag.action)
+                                {
+                                    <option value=" @item.Key"> @item.Value</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-sm-2" style="text-align:left;">
+                            <button type="button" style="margin-left:30px;margin-top:0" id="btn_search" class="btn btn-primary">查询</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="x_content">
+                <table id="tb_balID" style="font-size:15px"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="queryInfo1" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    &times;
+                </button>
+                <h3 class="modal-title" id="myModalTitle">充值中心</h3>
+            </div>
+            <div class="modal-body">
+                <div class="user-info global-clearfix" id="Username">
+                    <div class="tr_rechhead">
+                        <p style="font-size:17px">
+                            充值帐号：
+                            <a>@Session["name"]</a>
+                        </p>
+                        <div class="tr_rechheadcion">
+                            <img src="/images/coin.png" alt="" />
+                            <span>当前余额：<span>¥ @ViewBag.balance</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tr_rechli am-form-group">
+                    <ul class="ui-choose am-form-group" id="uc_01">
+                        <li>
+                            <label class="am-radio-inline">
+                                <input type="radio" value="" name="docVlGender" required data-validation-message="请选择一项充值额度"><span style="color:red">¥</span> <span style="color:red;font-size:20px;font-weight:bold">100</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="am-radio-inline">
+                                <input type="radio" name="docVlGender" data-validation-message="请选择一项充值额度"><span style="color:red">¥</span> <span style="color:red;font-size:20px;font-weight:bold">200</span>
+                            </label>
+                        </li>
+
+                        <li>
+                            <label class="am-radio-inline">
+                                <input type="radio" name="docVlGender" data-validation-message="请选择一项充值额度"><span style="color:red">¥</span> <span style="color:red;font-size:20px;font-weight:bold">500</span>
+                            </label>
+                        </li>
+
+                        <li>
+                            <label class="am-radio-inline">
+                                <input type="radio" name="docVlGender" data-validation-message="请选择一项充值额度"><span style="color:red">¥</span> <span style="color:red;font-size:20px;font-weight:bold">1000</span>
+                            </label>
+                        </li>
+
+                    </ul>
+                </div>
+                <br />
+                <div class="tr_rechcho am-form-group">
+                    <span>充值方式：</span>
+                    <label class="am-radio">
+                        <input type="radio" name="radio1" id="one" data-am-ucheck required data-validation-message="请选择一种充值方式" style="margin-top:20px;" checked><img src="/images/wechatpay.png">
+                    </label>
+                    <label class="am-radio" style="margin-right:30px">
+                        <input type="radio" name="radio1" id="two" data-am-ucheck data-validation-message="请选择一种充值方式" style="margin-top:20px"><img src="/images/zfbpay.png">
+                    </label>
+                </div>
+                <div class="tr_rechnum">
+                    <span>应付金额：</span>
+                    <p class="rechnum">0</p>元
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" id="btn_Recharge" value="1" style="font-weight:bold">充值</button>
+                    <button type="button" class="btn btn-default" id="myclose" data-dismiss="modal" style="font-weight:bold"> 关闭</button>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal -->
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="queryInfo2" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" style="top:12%">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalTitle">扫码支付</h4>
+
+            </div>
+            <img src="" class="img-rounded" alt="ZZFmoney" style="width:100%" id="src_money">
+
+        </div>
+    </div>
+</div>
+
+
+
+
+                <script type="text/javascript">
+
+                    $(document).ready(function () {
+                        var moneypath = "/ZZFmoney.PNG";
+                        var oTable;
+                        var oButtonInit;
+                        $(".fixed-table-header").remove();
+                        $(function () {
+                            //1.初始化Table
+                            $("[data-toggle='tooltip']").tooltip();
+                            oTable = new TableInit();
+                            oTable.Init();
+
+                            //2.初始化Button的点击事件
+                            oButtonInit = new ButtonInit();
+                            oButtonInit.Init();
+
+                            toastr.options = {
+                                "closeButton": false,
+                                "debug": false,
+                                "postitionClass": "toast-top-full-width",
+                                "showDuration": "300",
+                                "hideDuration": "1000",
+                                "timeOut": "5000",
+                                "showEasing": "swing",
+                                "hideEasing": "linear",
+                                "showMethod": "fadeIn",
+                                "hideMethod": "fadeOut"
+                            };
+                        });
+                        var TableInit = function () {
+                            var oTableInit = new Object();
+                            //初始化Table
+                            oTableInit.Init = function () {
+                                $('#tb_balID').bootstrapTable({
+                                    url: '/UserBalance/View_Action/Table',         //请求后台的URL（*）
+                                    method: 'get',                      //请求方式（*）
+                                    toolbar: '#toolbar',                //工具按钮用哪个容器
+                                    striped: true,                      //是否显示行间隔色
+                                    cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                                    pagination: true,                   //是否显示分页（*）
+                                    sortable: true,                     //是否启用排序
+                                    sortOrder: "asc",                   //排序方式
+                                    sortStable: true,
+                                    queryParams: oTableInit.queryParams,//传递参数（*）
+                                    sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                                    pageNumber: 1,                       //初始化加载第一页，默认第一页
+                                    pageSize: 8,                       //每页的记录行数（*）
+                                    pageList: [10],                     //可供选择的每页的行数（*）
+                                    search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                                    strictSearch: true,
+                                    showColumns: true,                  //是否显示所有的列
+                                    showRefresh: true,                  //是否显示刷新按钮
+                                    minimumCountColumns: 2,             //最少允许的列数
+                                    clickToSelect: true,                //是否启用点击选中行
+                                    uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+                                    showToggle: false,                    //是否显示详细视图和列表视图的切换按钮
+                                    cardView: false,                    //是否显示详细视图
+                                    detailView: false,                   //是否显示父子表
+                                    columns: [
+                                        {
+                                            field: '操作动作',
+                                            title: '操作动作'
+                                        },
+                                        {
+                                            field: '时间',
+                                            title: '时间'
+                                        },
+                                        {
+                                            field: '操作金额',
+                                            title: '操作金额'
+                                        },
+                                        {
+                                            field: '当时余额',
+                                            title: '当时余额'
+                                        },
+                                    ]
+                                });
+                            };
+
+                            //得到查询的参数
+                            oTableInit.queryParams = function (params) {
+                                $(".fixed-table-header").remove();
+                                var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                                    limit: params.limit,   //页面大小
+                                    offset: params.offset,  //页码
+                                    ActionID: $("#Useraction ").val()
+                                };
+                                return temp;
+
+                            };
+                            return oTableInit;
+
+                        };
+
+                        var ButtonInit = function () {
+                            var oInit = new Object();
+                            var postdata = {};
+
+                            oInit.Init = function () {
+                                //初始化页面上面的按钮事件
+                            };
+
+                            return oInit;
+                        };
+
+                        $("#btn_search").click(function () {
+                            $('#tb_balID').bootstrapTable('refresh', {
+                                ActionID: $("#Useraction ").val()
+                            });
+                        })
+
+                        $("#btn_query").click(function () {
+                            $('#queryInfo1').modal('show');
+                        });
+
+                        $("#one").click(function () {
+                            moneypath = "/ZZFmoney.PNG";
+                        });
+
+                        $("#two").click(function () {
+                            moneypath = "/DYRmoney.PNG";
+                        });
+
+                        // 将所有.ui-choose实例化
+                        $('.ui-choose').ui_choose();
+                        // uc_01 ul 单选
+                        var uc_01 = $('#uc_01').data('ui-choose'); // 取回已实例化的对象
+                        $(function () {
+
+                            $('#uc_01 li:eq(0)').click(function () {
+                                $('.tr_rechoth').hide();
+                                $('.rechnum').text('100');
+                                $('.othbox').val('');
+                            })
+                            $('#uc_01 li:eq(1)').click(function () {
+                                $('.tr_rechoth').hide();
+                                $('.rechnum').text('200');
+                                $('.othbox').val('');
+                            })
+                            $('#uc_01 li:eq(2)').click(function () {
+                                $('.tr_rechoth').hide();
+                                $('.rechnum').text('500');
+                                $('.othbox').val('');
+                            })
+                            $('#uc_01 li:eq(3)').click(function () {
+                                $('.tr_rechoth').hide();
+                                $('.rechnum').text('1000');
+                                $('.othbox').val('');
+                            })
+
+                        })
+
+                        $("#btn_Recharge").click(function () {
+                            if ($('.rechnum').text() == "0") {
+                                toastr.warning("请选择充值金额");
+                            }
+                            else {
+                                //$.ajax({
+                                //    type: "POST",//请求方式
+                                //    url: '/UserBalance/View_Action/recharge',
+                                //    dataType: "json",
+                                //    data: {
+                                //        "money": $(".rechnum").text()
+                                //    },
+                                //    success: function (data) {
+                                //        $("#queryInfo1").modal('hide');
+                                //        window.location.reload();
+                                //    }
+                                //});
+                                $('#queryInfo1').modal('hide');
+                                $('#queryInfo2').modal('show');
+                                $("#src_money").attr("src", moneypath);
+                            }
+                        });
+
+                        $(function () {
+                            $('#queryInfo2').on('hide.bs.modal', function () {
+                                $.ajax({
+                                    type: "POST",//请求方式
+                                    url: '/UserBalance/View_Action/recharge',
+                                    dataType: "json",
+                                    data: {
+                                        "money": $(".rechnum").text()
+                                    },
+                                    success: function (data) {
+                                        window.location.reload();
+                                    }
+                                });
+                            })
+                        });
+                    });
+
+                </script>
+
+                <script src="~/js/ui-choose.js"></script>
+                <script src="~/Content/bootstrap-table.min.js"></script>
+                <script src="~/Content/bootstrap-table-zh-CN.js"></script>

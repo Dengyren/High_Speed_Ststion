@@ -1,0 +1,996 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HighSpeedTollSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TB_Action">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="操作动作" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_AuditStatus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="状态" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_Balance">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="操作id" Type="int" Nullable="false" />
+          <Property Name="操作金额" Type="int" Nullable="false" />
+          <Property Name="用户编号" Type="int" Nullable="false" />
+          <Property Name="时间" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="当时余额" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_CarAudit">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="车牌号" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="用户编号" Type="int" Nullable="false" />
+          <Property Name="状态编号" Type="int" Nullable="false" />
+          <Property Name="车牌照片前" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="车牌照片后" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="信息编号" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_carID">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="车牌号" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="用户编号" Type="int" Nullable="false" />
+          <Property Name="状态编号" Type="int" Nullable="false" />
+          <Property Name="车牌照片前" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="车牌照片后" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_FeedBack">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="日期" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="用户编号" Type="int" Nullable="false" />
+          <Property Name="反馈内容" Type="varchar(max)" Nullable="false" />
+          <Property Name="反馈类型" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="状态" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_HighSpeedState">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="状态" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_MTC">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="车牌号码" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="进站时间" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="出站时间" Type="varchar" MaxLength="50" />
+          <Property Name="进站点" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="中间路径" Type="varchar(max)" />
+          <Property Name="出站点" Type="varchar" MaxLength="50" />
+          <Property Name="扣费金额" Type="int" />
+          <Property Name="状态" Type="int" />
+        </EntityType>
+        <EntityType Name="TB_OverSite">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="进站编号" Type="int" Nullable="false" />
+          <Property Name="站点编号" Type="int" Nullable="false" />
+          <Property Name="过站时间" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_OwnershipArea">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="归属管区" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_pcUser">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="警员编号" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="姓名" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="密码" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="性别" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="年龄" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="归属" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_StationManager">
+          <Key>
+            <PropertyRef Name="管理员编号" />
+          </Key>
+          <Property Name="管理员编号" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="身份证号码" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="姓名" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="密码" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="管区id" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TB_Tollgate">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="站点名称" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="收费金额" Type="int" Nullable="false" />
+          <Property Name="归属管区id" Type="int" />
+        </EntityType>
+        <EntityType Name="TB_user">
+          <Key>
+            <PropertyRef Name="用户编号" />
+          </Key>
+          <Property Name="用户编号" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="身份证号码" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="姓名" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="密码" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="信息编号" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_UserAudit">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="用户编号" Type="int" Nullable="false" />
+          <Property Name="身份证号码" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="姓名" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="驾驶证号码" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="籍贯" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="手机号码" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="身份证照片" Type="varchar(max)" Nullable="false" />
+          <Property Name="状态编号" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_UserInfo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="手机号码" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="籍贯" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="驾驶证号码" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="身份证照片" Type="varchar" MaxLength="100" />
+          <Property Name="账户余额" Type="int" Nullable="false" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“HighSpeedTollSystem.dbo.View_Action”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="View_Action">
+          <Key>
+            <PropertyRef Name="操作动作" />
+            <PropertyRef Name="id" />
+            <PropertyRef Name="操作id" />
+            <PropertyRef Name="操作金额" />
+            <PropertyRef Name="用户编号" />
+            <PropertyRef Name="时间" />
+            <PropertyRef Name="当时余额" />
+          </Key>
+          <Property Name="操作动作" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="操作id" Type="int" Nullable="false" />
+          <Property Name="操作金额" Type="int" Nullable="false" />
+          <Property Name="用户编号" Type="int" Nullable="false" />
+          <Property Name="时间" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="当时余额" Type="int" Nullable="false" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“HighSpeedTollSystem.dbo.View_Car”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="View_Car">
+          <Key>
+            <PropertyRef Name="状态" />
+            <PropertyRef Name="车牌号" />
+            <PropertyRef Name="用户编号" />
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="状态" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="车牌号" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="用户编号" Type="int" Nullable="false" />
+          <Property Name="车牌照片前" Type="varchar" MaxLength="100" />
+          <Property Name="车牌照片后" Type="varchar" MaxLength="100" />
+          <Property Name="id" Type="int" Nullable="false" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“HighSpeedTollSystem.dbo.View_CarInfo”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="View_CarInfo">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="用户编号" />
+            <PropertyRef Name="姓名" />
+            <PropertyRef Name="身份证号码" />
+            <PropertyRef Name="车牌号" />
+            <PropertyRef Name="状态编号" />
+            <PropertyRef Name="车牌照片后" />
+            <PropertyRef Name="车牌照片前" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="用户编号" Type="int" Nullable="false" />
+          <Property Name="姓名" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="身份证号码" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="车牌号" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="状态编号" Type="int" Nullable="false" />
+          <Property Name="车牌照片后" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="车牌照片前" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“HighSpeedTollSystem.dbo.View_StationDetail”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="View_StationDetail">
+          <Key>
+            <PropertyRef Name="站点名称" />
+            <PropertyRef Name="收费金额" />
+            <PropertyRef Name="过站时间" />
+            <PropertyRef Name="车牌号码" />
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="站点名称" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="收费金额" Type="int" Nullable="false" />
+          <Property Name="过站时间" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="车牌号码" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“HighSpeedTollSystem.dbo.View_TollStation”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="View_TollStation">
+          <Key>
+            <PropertyRef Name="归属管区" />
+            <PropertyRef Name="id" />
+            <PropertyRef Name="站点名称" />
+            <PropertyRef Name="收费金额" />
+          </Key>
+          <Property Name="归属管区" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="站点名称" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="收费金额" Type="int" Nullable="false" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“HighSpeedTollSystem.dbo.View_UserFeedBackAudit”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="View_UserFeedBackAudit">
+          <Key>
+            <PropertyRef Name="车牌号" />
+            <PropertyRef Name="身份证号码" />
+            <PropertyRef Name="姓名" />
+            <PropertyRef Name="驾驶证号码" />
+            <PropertyRef Name="籍贯" />
+            <PropertyRef Name="手机号码" />
+            <PropertyRef Name="状态" />
+            <PropertyRef Name="用户编号" />
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="车牌号" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="身份证号码" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="姓名" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="驾驶证号码" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="籍贯" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="手机号码" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="状态" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="用户编号" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“HighSpeedTollSystem.dbo.View_UserInfo”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="View_UserInfo">
+          <Key>
+            <PropertyRef Name="身份证号码" />
+            <PropertyRef Name="姓名" />
+            <PropertyRef Name="驾驶证号码" />
+            <PropertyRef Name="籍贯" />
+            <PropertyRef Name="手机号码" />
+            <PropertyRef Name="用户编号" />
+          </Key>
+          <Property Name="身份证号码" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="姓名" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="身份证照片" Type="varchar" MaxLength="100" />
+          <Property Name="驾驶证号码" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="籍贯" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="手机号码" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="用户编号" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="HighSpeedTollSystemModelStoreContainer">
+          <EntitySet Name="TB_Action" EntityType="Self.TB_Action" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_AuditStatus" EntityType="Self.TB_AuditStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_Balance" EntityType="Self.TB_Balance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_CarAudit" EntityType="Self.TB_CarAudit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_carID" EntityType="Self.TB_carID" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_FeedBack" EntityType="Self.TB_FeedBack" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_HighSpeedState" EntityType="Self.TB_HighSpeedState" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_MTC" EntityType="Self.TB_MTC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_OverSite" EntityType="Self.TB_OverSite" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_OwnershipArea" EntityType="Self.TB_OwnershipArea" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_pcUser" EntityType="Self.TB_pcUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_StationManager" EntityType="Self.TB_StationManager" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_Tollgate" EntityType="Self.TB_Tollgate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_user" EntityType="Self.TB_user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_UserAudit" EntityType="Self.TB_UserAudit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_UserInfo" EntityType="Self.TB_UserInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="View_Action" EntityType="Self.View_Action" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_Action].[操作动作] AS [操作动作], 
+    [View_Action].[id] AS [id], 
+    [View_Action].[操作id] AS [操作id], 
+    [View_Action].[操作金额] AS [操作金额], 
+    [View_Action].[用户编号] AS [用户编号], 
+    [View_Action].[时间] AS [时间], 
+    [View_Action].[当时余额] AS [当时余额]
+    FROM [dbo].[View_Action] AS [View_Action]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="View_Car" EntityType="Self.View_Car" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_Car].[状态] AS [状态], 
+    [View_Car].[车牌号] AS [车牌号], 
+    [View_Car].[用户编号] AS [用户编号], 
+    [View_Car].[车牌照片前] AS [车牌照片前], 
+    [View_Car].[车牌照片后] AS [车牌照片后], 
+    [View_Car].[id] AS [id]
+    FROM [dbo].[View_Car] AS [View_Car]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="View_CarInfo" EntityType="Self.View_CarInfo" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_CarInfo].[id] AS [id], 
+    [View_CarInfo].[用户编号] AS [用户编号], 
+    [View_CarInfo].[姓名] AS [姓名], 
+    [View_CarInfo].[身份证号码] AS [身份证号码], 
+    [View_CarInfo].[车牌号] AS [车牌号], 
+    [View_CarInfo].[状态编号] AS [状态编号], 
+    [View_CarInfo].[车牌照片后] AS [车牌照片后], 
+    [View_CarInfo].[车牌照片前] AS [车牌照片前]
+    FROM [dbo].[View_CarInfo] AS [View_CarInfo]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="View_StationDetail" EntityType="Self.View_StationDetail" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_StationDetail].[站点名称] AS [站点名称], 
+    [View_StationDetail].[收费金额] AS [收费金额], 
+    [View_StationDetail].[过站时间] AS [过站时间], 
+    [View_StationDetail].[车牌号码] AS [车牌号码], 
+    [View_StationDetail].[id] AS [id]
+    FROM [dbo].[View_StationDetail] AS [View_StationDetail]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="View_TollStation" EntityType="Self.View_TollStation" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_TollStation].[归属管区] AS [归属管区], 
+    [View_TollStation].[id] AS [id], 
+    [View_TollStation].[站点名称] AS [站点名称], 
+    [View_TollStation].[收费金额] AS [收费金额]
+    FROM [dbo].[View_TollStation] AS [View_TollStation]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="View_UserFeedBackAudit" EntityType="Self.View_UserFeedBackAudit" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_UserFeedBackAudit].[车牌号] AS [车牌号], 
+    [View_UserFeedBackAudit].[身份证号码] AS [身份证号码], 
+    [View_UserFeedBackAudit].[姓名] AS [姓名], 
+    [View_UserFeedBackAudit].[驾驶证号码] AS [驾驶证号码], 
+    [View_UserFeedBackAudit].[籍贯] AS [籍贯], 
+    [View_UserFeedBackAudit].[手机号码] AS [手机号码], 
+    [View_UserFeedBackAudit].[状态] AS [状态], 
+    [View_UserFeedBackAudit].[用户编号] AS [用户编号], 
+    [View_UserFeedBackAudit].[id] AS [id]
+    FROM [dbo].[View_UserFeedBackAudit] AS [View_UserFeedBackAudit]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="View_UserInfo" EntityType="Self.View_UserInfo" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_UserInfo].[身份证号码] AS [身份证号码], 
+    [View_UserInfo].[姓名] AS [姓名], 
+    [View_UserInfo].[身份证照片] AS [身份证照片], 
+    [View_UserInfo].[驾驶证号码] AS [驾驶证号码], 
+    [View_UserInfo].[籍贯] AS [籍贯], 
+    [View_UserInfo].[手机号码] AS [手机号码], 
+    [View_UserInfo].[用户编号] AS [用户编号]
+    FROM [dbo].[View_UserInfo] AS [View_UserInfo]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HighSpeedTollSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="HighSpeedTollSystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TB_Action" EntityType="HighSpeedTollSystemModel.TB_Action" />
+          <EntitySet Name="TB_AuditStatus" EntityType="HighSpeedTollSystemModel.TB_AuditStatus" />
+          <EntitySet Name="TB_Balance" EntityType="HighSpeedTollSystemModel.TB_Balance" />
+          <EntitySet Name="TB_CarAudit" EntityType="HighSpeedTollSystemModel.TB_CarAudit" />
+          <EntitySet Name="TB_carID" EntityType="HighSpeedTollSystemModel.TB_carID" />
+          <EntitySet Name="TB_FeedBack" EntityType="HighSpeedTollSystemModel.TB_FeedBack" />
+          <EntitySet Name="TB_HighSpeedState" EntityType="HighSpeedTollSystemModel.TB_HighSpeedState" />
+          <EntitySet Name="TB_MTC" EntityType="HighSpeedTollSystemModel.TB_MTC" />
+          <EntitySet Name="TB_OverSite" EntityType="HighSpeedTollSystemModel.TB_OverSite" />
+          <EntitySet Name="TB_OwnershipArea" EntityType="HighSpeedTollSystemModel.TB_OwnershipArea" />
+          <EntitySet Name="TB_pcUser" EntityType="HighSpeedTollSystemModel.TB_pcUser" />
+          <EntitySet Name="TB_StationManager" EntityType="HighSpeedTollSystemModel.TB_StationManager" />
+          <EntitySet Name="TB_Tollgate" EntityType="HighSpeedTollSystemModel.TB_Tollgate" />
+          <EntitySet Name="TB_user" EntityType="HighSpeedTollSystemModel.TB_user" />
+          <EntitySet Name="TB_UserAudit" EntityType="HighSpeedTollSystemModel.TB_UserAudit" />
+          <EntitySet Name="TB_UserInfo" EntityType="HighSpeedTollSystemModel.TB_UserInfo" />
+          <EntitySet Name="View_Action" EntityType="HighSpeedTollSystemModel.View_Action" />
+          <EntitySet Name="View_Car" EntityType="HighSpeedTollSystemModel.View_Car" />
+          <EntitySet Name="View_CarInfo" EntityType="HighSpeedTollSystemModel.View_CarInfo" />
+          <EntitySet Name="View_StationDetail" EntityType="HighSpeedTollSystemModel.View_StationDetail" />
+          <EntitySet Name="View_TollStation" EntityType="HighSpeedTollSystemModel.View_TollStation" />
+          <EntitySet Name="View_UserFeedBackAudit" EntityType="HighSpeedTollSystemModel.View_UserFeedBackAudit" />
+          <EntitySet Name="View_UserInfo" EntityType="HighSpeedTollSystemModel.View_UserInfo" />
+        </EntityContainer>
+        <EntityType Name="TB_Action">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="操作动作" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TB_AuditStatus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="状态" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TB_Balance">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="操作id" Type="Int32" Nullable="false" />
+          <Property Name="操作金额" Type="Int32" Nullable="false" />
+          <Property Name="用户编号" Type="Int32" Nullable="false" />
+          <Property Name="时间" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="当时余额" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_CarAudit">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="车牌号" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="用户编号" Type="Int32" Nullable="false" />
+          <Property Name="状态编号" Type="Int32" Nullable="false" />
+          <Property Name="车牌照片前" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="车牌照片后" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="信息编号" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_carID">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="车牌号" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="用户编号" Type="Int32" Nullable="false" />
+          <Property Name="状态编号" Type="Int32" Nullable="false" />
+          <Property Name="车牌照片前" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="车牌照片后" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TB_FeedBack">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="日期" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="用户编号" Type="Int32" Nullable="false" />
+          <Property Name="反馈内容" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="反馈类型" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="状态" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TB_HighSpeedState">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="状态" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TB_MTC">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="车牌号码" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="进站时间" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="出站时间" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="进站点" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="中间路径" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="出站点" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="扣费金额" Type="Int32" />
+          <Property Name="状态" Type="Int32" />
+        </EntityType>
+        <EntityType Name="TB_OverSite">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="进站编号" Type="Int32" Nullable="false" />
+          <Property Name="站点编号" Type="Int32" Nullable="false" />
+          <Property Name="过站时间" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TB_OwnershipArea">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="归属管区" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TB_pcUser">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="警员编号" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="姓名" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="密码" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="性别" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="年龄" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="归属" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TB_StationManager">
+          <Key>
+            <PropertyRef Name="管理员编号" />
+          </Key>
+          <Property Name="管理员编号" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="身份证号码" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="姓名" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="密码" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="管区id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TB_Tollgate">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="站点名称" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="收费金额" Type="Int32" Nullable="false" />
+          <Property Name="归属管区id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="TB_user">
+          <Key>
+            <PropertyRef Name="用户编号" />
+          </Key>
+          <Property Name="用户编号" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="身份证号码" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="姓名" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="密码" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="信息编号" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_UserAudit">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="用户编号" Type="Int32" Nullable="false" />
+          <Property Name="身份证号码" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="姓名" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="驾驶证号码" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="籍贯" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="手机号码" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="身份证照片" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="状态编号" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_UserInfo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="手机号码" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="籍贯" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="驾驶证号码" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="身份证照片" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="账户余额" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="View_Action">
+          <Key>
+            <PropertyRef Name="操作动作" />
+            <PropertyRef Name="id" />
+            <PropertyRef Name="操作id" />
+            <PropertyRef Name="操作金额" />
+            <PropertyRef Name="用户编号" />
+            <PropertyRef Name="时间" />
+            <PropertyRef Name="当时余额" />
+          </Key>
+          <Property Name="操作动作" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="操作id" Type="Int32" Nullable="false" />
+          <Property Name="操作金额" Type="Int32" Nullable="false" />
+          <Property Name="用户编号" Type="Int32" Nullable="false" />
+          <Property Name="时间" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="当时余额" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="View_Car">
+          <Key>
+            <PropertyRef Name="状态" />
+            <PropertyRef Name="车牌号" />
+            <PropertyRef Name="用户编号" />
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="状态" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="车牌号" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="用户编号" Type="Int32" Nullable="false" />
+          <Property Name="车牌照片前" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="车牌照片后" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="View_CarInfo">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="用户编号" />
+            <PropertyRef Name="姓名" />
+            <PropertyRef Name="身份证号码" />
+            <PropertyRef Name="车牌号" />
+            <PropertyRef Name="状态编号" />
+            <PropertyRef Name="车牌照片后" />
+            <PropertyRef Name="车牌照片前" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="用户编号" Type="Int32" Nullable="false" />
+          <Property Name="姓名" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="身份证号码" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="车牌号" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="状态编号" Type="Int32" Nullable="false" />
+          <Property Name="车牌照片后" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="车牌照片前" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="View_StationDetail">
+          <Key>
+            <PropertyRef Name="站点名称" />
+            <PropertyRef Name="收费金额" />
+            <PropertyRef Name="过站时间" />
+            <PropertyRef Name="车牌号码" />
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="站点名称" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="收费金额" Type="Int32" Nullable="false" />
+          <Property Name="过站时间" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="车牌号码" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="View_TollStation">
+          <Key>
+            <PropertyRef Name="归属管区" />
+            <PropertyRef Name="id" />
+            <PropertyRef Name="站点名称" />
+            <PropertyRef Name="收费金额" />
+          </Key>
+          <Property Name="归属管区" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="站点名称" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="收费金额" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="View_UserFeedBackAudit">
+          <Key>
+            <PropertyRef Name="车牌号" />
+            <PropertyRef Name="身份证号码" />
+            <PropertyRef Name="姓名" />
+            <PropertyRef Name="驾驶证号码" />
+            <PropertyRef Name="籍贯" />
+            <PropertyRef Name="手机号码" />
+            <PropertyRef Name="状态" />
+            <PropertyRef Name="用户编号" />
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="车牌号" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="身份证号码" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="姓名" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="驾驶证号码" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="籍贯" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="手机号码" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="状态" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="用户编号" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="View_UserInfo">
+          <Key>
+            <PropertyRef Name="身份证号码" />
+            <PropertyRef Name="姓名" />
+            <PropertyRef Name="驾驶证号码" />
+            <PropertyRef Name="籍贯" />
+            <PropertyRef Name="手机号码" />
+            <PropertyRef Name="用户编号" />
+          </Key>
+          <Property Name="身份证号码" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="姓名" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="身份证照片" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="驾驶证号码" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="籍贯" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="手机号码" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="用户编号" Type="Int32" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HighSpeedTollSystemModelStoreContainer" CdmEntityContainer="HighSpeedTollSystemEntities">
+          <EntitySetMapping Name="TB_Action">
+            <EntityTypeMapping TypeName="HighSpeedTollSystemModel.TB_Action">
+              <MappingFragment StoreEntitySet="TB_Action">
+                <ScalarProperty Name="操作动作" ColumnName="操作动作" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_AuditStatus">
+            <EntityTypeMapping TypeName="HighSpeedTollSystemModel.TB_AuditStatus">
+              <MappingFragment StoreEntitySet="TB_AuditStatus">
+                <ScalarProperty Name="状态" ColumnName="状态" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_Balance">
+            <EntityTypeMapping TypeName="HighSpeedTollSystemModel.TB_Balance">
+              <MappingFragment StoreEntitySet="TB_Balance">
+                <ScalarProperty Name="当时余额" ColumnName="当时余额" />
+                <ScalarProperty Name="时间" ColumnName="时间" />
+                <ScalarProperty Name="用户编号" ColumnName="用户编号" />
+                <ScalarProperty Name="操作金额" ColumnName="操作金额" />
+                <ScalarProperty Name="操作id" ColumnName="操作id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_CarAudit">
+            <EntityTypeMapping TypeName="HighSpeedTollSystemModel.TB_CarAudit">
+              <MappingFragment StoreEntitySet="TB_CarAudit">
+                <ScalarProperty Name="信息编号" ColumnName="信息编号" />
+                <ScalarProperty Name="车牌照片后" ColumnName="车牌照片后" />
+                <ScalarProperty Name="车牌照片前" ColumnName="车牌照片前" />
+                <ScalarProperty Name="状态编号" ColumnName="状态编号" />
+                <ScalarProperty Name="用户编号" ColumnName="用户编号" />
+                <ScalarProperty Name="车牌号" ColumnName="车牌号" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_carID">
+            <EntityTypeMapping TypeName="HighSpeedTollSystemModel.TB_carID">
+              <MappingFragment StoreEntitySet="TB_carID">
+                <ScalarProperty Name="车牌照片后" ColumnName="车牌照片后" />
+                <ScalarProperty Name="车牌照片前" ColumnName="车牌照片前" />
+                <ScalarProperty Name="状态编号" ColumnName="状态编号" />
+                <ScalarProperty Name="用户编号" ColumnName="用户编号" />
+                <ScalarProperty Name="车牌号" ColumnName="车牌号" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_FeedBack">
+            <EntityTypeMapping TypeName="HighSpeedTollSystemModel.TB_FeedBack">
+              <MappingFragment StoreEntitySet="TB_FeedBack">
+                <ScalarProperty Name="状态" ColumnName="状态" />
+                <ScalarProperty Name="反馈类型" ColumnName="反馈类型" />
+                <ScalarProperty Name="反馈内容" ColumnName="反馈内容" />
+                <ScalarProperty Name="用户编号" ColumnName="用户编号" />
+                <ScalarProperty Name="日期" ColumnName="日期" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_HighSpeedState">
+            <EntityTypeMapping TypeName="HighSpeedTollSystemModel.TB_HighSpeedState">
+              <MappingFragment StoreEntitySet="TB_HighSpeedState">
+                <ScalarProperty Name="状态" ColumnName="状态" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_MTC">
+            <EntityTypeMapping TypeName="HighSpeedTollSystemModel.TB_MTC">
+              <MappingFragment StoreEntitySet="TB_MTC">
+                <ScalarProperty Name="状态" ColumnName="状态" />
+                <ScalarProperty Name="扣费金额" ColumnName="扣费金额" />
+                <ScalarProperty Name="出站点" ColumnName="出站点" />
+                <ScalarProperty Name="中间路径" ColumnName="中间路径" />
+                <ScalarProperty Name="进站点" ColumnName="进站点" />
+                <ScalarProperty Name="出站时间" ColumnName="出站时间" />
+                <ScalarProperty Name="进站时间" ColumnName="进站时间" />
+                <ScalarProperty Name="车牌号码" ColumnName="车牌号码" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_OverSite">
+            <EntityTypeMapping TypeName="HighSpeedTollSystemModel.TB_OverSite">
+              <MappingFragment StoreEntitySet="TB_OverSite">
+                <ScalarProperty Name="过站时间" ColumnName="过站时间" />
+                <ScalarProperty Name="站点编号" ColumnName="站点编号" />
+                <ScalarProperty Name="进站编号" ColumnName="进站编号" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_OwnershipArea">
+            <EntityTypeMapping TypeName="HighSpeedTollSystemModel.TB_OwnershipArea">
+              <MappingFragment StoreEntitySet="TB_OwnershipArea">
+                <ScalarProperty Name="归属管区" ColumnName="归属管区" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_pcUser">
+            <EntityTypeMapping TypeName="HighSpeedTollSystemModel.TB_pcUser">
+              <MappingFragment StoreEntitySet="TB_pcUser">
+                <ScalarProperty Name="归属" ColumnName="归属" />
+                <ScalarProperty Name="年龄" ColumnName="年龄" />
+                <ScalarProperty Name="性别" ColumnName="性别" />
+                <ScalarProperty Name="密码" ColumnName="密码" />
+                <ScalarProperty Name="姓名" ColumnName="姓名" />
+                <ScalarProperty Name="警员编号" ColumnName="警员编号" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_StationManager">
+            <EntityTypeMapping TypeName="HighSpeedTollSystemModel.TB_StationManager">
+              <MappingFragment StoreEntitySet="TB_StationManager">
+                <ScalarProperty Name="管区id" ColumnName="管区id" />
+                <ScalarProperty Name="密码" ColumnName="密码" />
+                <ScalarProperty Name="姓名" ColumnName="姓名" />
+                <ScalarProperty Name="身份证号码" ColumnName="身份证号码" />
+                <ScalarProperty Name="管理员编号" ColumnName="管理员编号" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_Tollgate">
+            <EntityTypeMapping TypeName="HighSpeedTollSystemModel.TB_Tollgate">
+              <MappingFragment StoreEntitySet="TB_Tollgate">
+                <ScalarProperty Name="归属管区id" ColumnName="归属管区id" />
+                <ScalarProperty Name="收费金额" ColumnName="收费金额" />
+                <ScalarProperty Name="站点名称" ColumnName="站点名称" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_user">
+            <EntityTypeMapping TypeName="HighSpeedTollSystemModel.TB_user">
+              <MappingFragment StoreEntitySet="TB_user">
+                <ScalarProperty Name="信息编号" ColumnName="信息编号" />
+                <ScalarProperty Name="密码" ColumnName="密码" />
+                <ScalarProperty Name="姓名" ColumnName="姓名" />
+                <ScalarProperty Name="身份证号码" ColumnName="身份证号码" />
+                <ScalarProperty Name="用户编号" ColumnName="用户编号" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_UserAudit">
+            <EntityTypeMapping TypeName="HighSpeedTollSystemModel.TB_UserAudit">
+              <MappingFragment StoreEntitySet="TB_UserAudit">
+                <ScalarProperty Name="状态编号" ColumnName="状态编号" />
+                <ScalarProperty Name="身份证照片" ColumnName="身份证照片" />
+                <ScalarProperty Name="手机号码" ColumnName="手机号码" />
+                <ScalarProperty Name="籍贯" ColumnName="籍贯" />
+                <ScalarProperty Name="驾驶证号码" ColumnName="驾驶证号码" />
+                <ScalarProperty Name="姓名" ColumnName="姓名" />
+                <ScalarProperty Name="身份证号码" ColumnName="身份证号码" />
+                <ScalarProperty Name="用户编号" ColumnName="用户编号" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_UserInfo">
+            <EntityTypeMapping TypeName="HighSpeedTollSystemModel.TB_UserInfo">
+              <MappingFragment StoreEntitySet="TB_UserInfo">
+                <ScalarProperty Name="账户余额" ColumnName="账户余额" />
+                <ScalarProperty Name="身份证照片" ColumnName="身份证照片" />
+                <ScalarProperty Name="驾驶证号码" ColumnName="驾驶证号码" />
+                <ScalarProperty Name="籍贯" ColumnName="籍贯" />
+                <ScalarProperty Name="手机号码" ColumnName="手机号码" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_Action">
+            <EntityTypeMapping TypeName="HighSpeedTollSystemModel.View_Action">
+              <MappingFragment StoreEntitySet="View_Action">
+                <ScalarProperty Name="当时余额" ColumnName="当时余额" />
+                <ScalarProperty Name="时间" ColumnName="时间" />
+                <ScalarProperty Name="用户编号" ColumnName="用户编号" />
+                <ScalarProperty Name="操作金额" ColumnName="操作金额" />
+                <ScalarProperty Name="操作id" ColumnName="操作id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="操作动作" ColumnName="操作动作" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_Car">
+            <EntityTypeMapping TypeName="HighSpeedTollSystemModel.View_Car">
+              <MappingFragment StoreEntitySet="View_Car">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="车牌照片后" ColumnName="车牌照片后" />
+                <ScalarProperty Name="车牌照片前" ColumnName="车牌照片前" />
+                <ScalarProperty Name="用户编号" ColumnName="用户编号" />
+                <ScalarProperty Name="车牌号" ColumnName="车牌号" />
+                <ScalarProperty Name="状态" ColumnName="状态" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_CarInfo">
+            <EntityTypeMapping TypeName="HighSpeedTollSystemModel.View_CarInfo">
+              <MappingFragment StoreEntitySet="View_CarInfo">
+                <ScalarProperty Name="车牌照片前" ColumnName="车牌照片前" />
+                <ScalarProperty Name="车牌照片后" ColumnName="车牌照片后" />
+                <ScalarProperty Name="状态编号" ColumnName="状态编号" />
+                <ScalarProperty Name="车牌号" ColumnName="车牌号" />
+                <ScalarProperty Name="身份证号码" ColumnName="身份证号码" />
+                <ScalarProperty Name="姓名" ColumnName="姓名" />
+                <ScalarProperty Name="用户编号" ColumnName="用户编号" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_StationDetail">
+            <EntityTypeMapping TypeName="HighSpeedTollSystemModel.View_StationDetail">
+              <MappingFragment StoreEntitySet="View_StationDetail">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="车牌号码" ColumnName="车牌号码" />
+                <ScalarProperty Name="过站时间" ColumnName="过站时间" />
+                <ScalarProperty Name="收费金额" ColumnName="收费金额" />
+                <ScalarProperty Name="站点名称" ColumnName="站点名称" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_TollStation">
+            <EntityTypeMapping TypeName="HighSpeedTollSystemModel.View_TollStation">
+              <MappingFragment StoreEntitySet="View_TollStation">
+                <ScalarProperty Name="收费金额" ColumnName="收费金额" />
+                <ScalarProperty Name="站点名称" ColumnName="站点名称" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="归属管区" ColumnName="归属管区" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_UserFeedBackAudit">
+            <EntityTypeMapping TypeName="HighSpeedTollSystemModel.View_UserFeedBackAudit">
+              <MappingFragment StoreEntitySet="View_UserFeedBackAudit">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="用户编号" ColumnName="用户编号" />
+                <ScalarProperty Name="状态" ColumnName="状态" />
+                <ScalarProperty Name="手机号码" ColumnName="手机号码" />
+                <ScalarProperty Name="籍贯" ColumnName="籍贯" />
+                <ScalarProperty Name="驾驶证号码" ColumnName="驾驶证号码" />
+                <ScalarProperty Name="姓名" ColumnName="姓名" />
+                <ScalarProperty Name="身份证号码" ColumnName="身份证号码" />
+                <ScalarProperty Name="车牌号" ColumnName="车牌号" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_UserInfo">
+            <EntityTypeMapping TypeName="HighSpeedTollSystemModel.View_UserInfo">
+              <MappingFragment StoreEntitySet="View_UserInfo">
+                <ScalarProperty Name="用户编号" ColumnName="用户编号" />
+                <ScalarProperty Name="手机号码" ColumnName="手机号码" />
+                <ScalarProperty Name="籍贯" ColumnName="籍贯" />
+                <ScalarProperty Name="驾驶证号码" ColumnName="驾驶证号码" />
+                <ScalarProperty Name="身份证照片" ColumnName="身份证照片" />
+                <ScalarProperty Name="姓名" ColumnName="姓名" />
+                <ScalarProperty Name="身份证号码" ColumnName="身份证号码" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

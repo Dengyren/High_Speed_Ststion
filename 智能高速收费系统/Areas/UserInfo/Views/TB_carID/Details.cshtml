@@ -1,0 +1,59 @@
+﻿@model DAL.TB_carID
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TB_carID</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.车牌号)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.车牌号)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.用户编号)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.用户编号)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.状态编号)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.状态编号)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.车牌照片前)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.车牌照片前)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.车牌照片后)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.车牌照片后)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

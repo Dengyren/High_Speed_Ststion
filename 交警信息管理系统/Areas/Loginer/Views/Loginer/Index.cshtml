@@ -1,0 +1,90 @@
+﻿
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <title> 交警信息管理系统</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+
+    <link href="/css/login.css" rel="stylesheet">
+    <link href="/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+    <script>
+        if (window.top !== window.self) {
+            window.top.location = window.location;
+        }
+    </script>
+
+</head>
+
+<body class="signin" style="background:cadetblue">
+    <div class="signinpanel">
+        <div class="row">
+            <div class="col-sm-12">
+                <form id="LoginFrom" method="post" action="@ViewBag.FormAction">
+                    <h1>交警信息管理系统</h1>
+                    <input id="userID" name="userID" type="text" class="form-control uname" placeholder="警员编号" />
+                    <input id="password" name="password" type="password" class="form-control pword m-b" placeholder="密码" />
+                    <p align="center" style="display:none" id="myerror">@ViewBag.error</p>
+                    <button class="btn btn-success btn-block" id="comfrom">登录</button>
+                    
+                </form>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
+
+
+<!-- 全局js -->
+<script src="/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/bootstrap.min.js?v=3.3.6"></script>
+<!-- Toastr script -->
+<script src="/js/plugins/toastr/toastr.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(function () {
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "postitionClass": "toast-top-full-width",
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+            if ($("#myerror").text() == "error") {
+                toastr.error("警员编号或密码错误！");
+            }
+
+
+            $("#comfrom").click(function () {
+
+                if ($("#userID").val() == '') {
+                    toastr.error("请输入警员编号！");
+                    return false;
+                }
+                else if ($("#password").val() == '') {
+                    toastr.error("请输入密码！");
+                    return false;
+                }
+            })
+        });
+    })
+</script>
+

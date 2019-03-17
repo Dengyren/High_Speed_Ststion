@@ -1,0 +1,245 @@
+﻿@model IEnumerable<DAL.TB_FeedBack>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="panel panel-default" style="margin-top: 20px;">
+        <h1 class="panel-heading" style="background-color:white">反馈箱</h1>
+        <div class="clearfix"></div>
+    </div>
+    <div class="panel panel-default">
+        @*身份证号输入框*@
+        <div class="col-md-12" style="margin-top:30px;">
+            <div class="form-group">
+                <label class="col-sm-1 control-label" style="font-size:medium;font-family:bold;">状态</label>
+                <div class="col-sm-3">
+                    <select class="form-control re-search" id="search_id" name="tollID">
+                        <option selected></option>
+                        <option value="未读"> 未读</option>
+                        <option value="已读"> 已读</option>
+                    </select>
+                </div>
+                <label class="col-sm-1 control-label" style="font-size:medium;font-family:bold;">反馈类型</label>
+                <div class="col-sm-3">
+                    <select class="form-control re-search" id="search_kind" name="tollID">
+                        <option selected></option>
+                        <option value="评价"> 评价</option>
+                        <option value="建议"> 建议</option>
+                        <option value="投诉"> 投诉</option>
+                    </select>
+                </div>
+                <div class="fl re-search" style="text-align:left;">
+                    <button type="button" id="btn_query" class="btn btn-primary">查询</button>
+                </div>
+            </div>
+        </div>
+
+        @*bootstrap-table*@
+        <div class="x_content" style="margin-top:50px;">
+            <div class="ibox-content">
+                <table id="tb_UserInfo">   </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="queryInfo" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times;</button>
+                <h2 class="modal-title" id="myModalTitle">反馈信息</h2>
+            </div>
+            <div class="modal-body">
+                <div class="input-group" id="kind">
+                    <span class="input-group-addon">反馈类型</span>
+                    <input type="text" class="form-control my_input"
+                           id="mykind" readonly="readonly" style="background-color:white">
+                </div>
+                <br />
+                <div class="input-group" id="kind">
+                    <span class="input-group-addon">日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期</span>
+                    <input type="text" class="form-control my_input"
+                           id="time" readonly="readonly" style="background-color:white">
+                </div>
+                <br />
+                <div class="input-group" id="kind">
+                    <span class="input-group-addon">反馈内容</span>
+                    <div class="textarea">
+                        <textarea id="mesaage" class="form-control my_input" name="message" readonly="readonly" style="resize: none;background-color:white;height:100px"> </textarea>
+                    </div>
+                </div>
+                <br />
+                <div class="input-group" id="kind">
+                    <span class="input-group-addon">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态</span>
+                    <select class="form-control re-search" id="state" name="tollID">
+                        <option value="未读" selected> 未读</option>
+                        <option value="已读"> 已读</option>
+                    </select>
+                </div>
+                <br />
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="mysumbit" data-dismiss="modal" value="0"> 确定</button>
+                    <button type="button" class="btn btn-default" id="myclose" data-dismiss="modal"> 关闭</button>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal -->
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        var oTable
+        var oButtonInit
+        $(function () {
+            //1.初始化Table
+            oTable = new TableInit();
+            oTable.Init();
+        });
+        var TableInit = function () {
+            var oTableInit = new Object();
+            //初始化Table
+            oTableInit.Init = function () {
+                $('#tb_UserInfo').bootstrapTable({
+                    url: '/UserFeedBack/TB_FeedBack/Table',         //请求后台的URL（*）
+                    method: 'get',                      //请求方式（*）
+                    toolbar: '#toolbar',                //工具按钮用哪个容器
+                    striped: true,                      //是否显示行间隔色
+                    cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                    pagination: true,                   //是否显示分页（*）
+                    sortable: true,                     //是否启用排序
+                    sortOrder: "asc",                   //排序方式
+                    queryParams: oTableInit.queryParams,//传递参数（*）
+                    sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                    height: 510,
+                    pageNumber: 1,                       //初始化加载第一页，默认第一页
+                    pageSize: 10,                       //每页的记录行数（*）
+                    pageList: [5],                     //可供选择的每页的行数（*）
+                    showColumns: false,                // 列
+                    pagination: true,                  //分页
+                    paginationLoop: false,
+                    paginationPreText: '上一页',
+                    paginationNextText: '下一页',
+                    search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                    strictSearch: true,
+                    clickToSelect: true,                //是否启用点击选中行
+                    uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                    showToggle: false,                    //是否显示详细视图和列表视图的切换按钮
+                    cardView: false,                    //是否显示详细视图
+                    detailView: false,                   //是否显示父子表
+                    columns: [
+                        {
+                            field: '日期',
+                            title: '日期'
+                        },
+                        {
+                            field: '反馈类型',
+                            title: '反馈类型'
+                        },
+                        {
+                            field: '反馈内容',
+                            title: '反馈内容'
+                        },
+                        {
+                            field: '状态',
+                            title: '状态'
+                        },
+                        {
+                            field: 'id',
+                            title: '操作动作',
+                            formatter: operation
+                        },
+
+
+                    ]
+                });
+            };
+
+            //得到查询的参数
+            oTableInit.queryParams = function (params) {
+                var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                    limit: params.limit,   //页面大小
+                    offset: params.offset,  //页码
+                    id: $('#search_id').val(),
+                    kindid: $('#search_kind').val()
+                };
+                return temp;
+
+            };
+            return oTableInit;
+
+        };
+
+        var ButtonInit = function () {
+            var oInit = new Object();
+            var postdata = {};
+
+            oInit.Init = function () {
+                //初始化页面上面的按钮事件
+
+            };
+
+            return oInit;
+        };
+
+        operation = function (value, row, index) {
+            return ' <input type="button" id="detail" class="btn btn-warning" onclick="query(' + value + ')" value="详细信息">';
+        }
+
+        $("#btn_query").click(function () {
+            $('#tb_UserInfo').bootstrapTable('refresh', {
+                id: $("#search_id").val(),
+                kindid: $('#search_kind').val()
+            });
+        });
+
+        query = function (id) {
+            $.ajax({
+                url: "/UserFeedBack/TB_FeedBack/GetMsg",
+                type: "post",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    "id": id,
+                }),
+                success: function (data) {
+                    $("#mykind").val(data.反馈类型);
+                    $("#mesaage").val(data.反馈内容);
+                   
+                    $("#state").val(data.状态);
+                    $("#time").val(data.日期);
+                    document.all.mysumbit.value = id;
+                    $("#queryInfo").modal('show');
+                },
+            });
+        }
+
+
+        $("#mysumbit").click(function () {
+            $.ajax({
+                url: "/UserFeedBack/TB_FeedBack/NewEdit",
+                type: "post",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    "state": $("#state").val(),
+                    "id": document.all.mysumbit.value
+                }),
+                success: function (data) {
+                    $('#tb_UserInfo').bootstrapTable('refresh');
+                },
+            });
+        });
+
+    });
+</script>

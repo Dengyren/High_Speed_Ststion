@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>智能高速收费系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="keywords" content="">
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-table.min.css" rel="stylesheet" />
+    <!-- Bootstrap Core CSS -->
+    @*<link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">*@
+    <!-- Custom CSS -->
+    <!-- Graph CSS -->
+    <link href="/css/font-awesome.css" rel="stylesheet">
+    <!-- jQuery -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400" rel="stylesheet" type="text/css">
+    <!-- lined-icons -->
+    <link rel="stylesheet" href="/css/icon-font.min.css" type="text/css">
+    <link href="~/css/toastr.min.css" rel="stylesheet" />
+
+    <!-- //lined-icons -->
+
+    <script src="/js/chart-pie.js"></script>
+    <script src="/js/amcharts.js"></script>
+    <script src="/js/serial.js"></script>
+    <script src="/js/light.js"></script>
+    <script src="/js/radar.js"></script>
+    <!--//skycons-icons-->
+    <script src="/js/jquery-1.10.2.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/locales/zh.js"></script>
+    <script src="~/Content/bootstrap-table.min.js"></script>
+    <script src="~/Content/bootstrap-table-zh-CN.js"></script>
+
+
+
+
+    <style>
+        .col-md-10 {
+            width: 65%;
+        }
+
+        .btn-file {
+            margin: 0;
+        }
+
+        .kv-fileinput-caption {
+            height: 46px;
+        }
+
+        a:link {
+            text-decoration: none;
+        }
+
+        a:visited {
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        a:active {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+
+<body style="margin-left: 50px;text-decoration:none">
+
+    <div class="page-container">
+        <!--/content-inner-->
+        <div class="left-content">
+            <div class="inner-content">
+
+            </div>
+        </div>
+        <!--//content-inner-->
+        <!--/sidebar-menu-->
+        <div class="sidebar-menu">
+            <header class="logo" style="font-size:0.9em">
+                <a class="sidebar-icon"> <span class="fa fa-bars"></span> </a> <a href="index.html">
+                    <span id="logo"> <h1>站点管理系统</h1></span>
+                    <!--<img id="logo" src="" alt="Logo"/>-->
+                </a>
+            </header>
+            <div style="border-top:1px solid rgba(69, 74, 84, 0.7)"></div>
+            <!--/down-->
+            <div class="down">
+                <a><img src="/images/admin.jpg"></a>
+                <a><span class=" name-caret">@Session["name"]</span></a>
+                <p>站点管理人员</p>
+
+            </div>
+            <!--//down-->
+            <div class="menu">
+                <ul id="menu">
+
+
+                    <li id="menu-academico">
+                        <a href="~/Home/Home/Index"><i class="fa fa-file-text-o"></i> <span>首页</span><span class="fa fa-angle-right" style="float: right"></span></a>
+
+                    </li>
+                    <li>
+                        <a href=" /StationAdmin/TB_Tollgate/Index"><i class="lnr lnr-pencil"></i> <span>站点管理</span><span class="fa fa-angle-right" style="float: right"></span></a>
+                    </li>
+                    <li>
+                        <a href=" /StationDetail/TB_StationDetails/Index"><i class="lnr-diamond"></i> <span>站点车流</span><span class="fa fa-angle-right" style="float: right"></span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="left-content">
+            <div>
+
+                @RenderBody()
+            </div>
+
+        </div>
+        <div class="clearfix">
+
+        </div>
+    </div>
+
+
+
+    <script>
+        $(document).ready(function () {
+            var toggle = true;
+
+            $(".sidebar-icon").click(function () {
+                if (toggle) {
+                    $(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
+                    $("#menu span").css({ "position": "absolute" });
+                }
+                else {
+                    $(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
+                    setTimeout(function () {
+                        $("#menu span").css({ "position": "relative" });
+                    }, 400);
+                }
+
+                toggle = !toggle;
+
+
+
+            });
+            if ($(".name-caret").text() == "") {
+                window.location.replace("/Login/Index");
+            }
+
+        });
+    </script>
+    <!--js -->
+    <script src="/js/jquery.nicescroll.js"></script>
+
+
+
+
+
+    <script src="/js/scripts.js"></script>
+
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="~/js/toastr.min.js"></script>
+
+
+
+    <!-- Bootstrap Core JavaScript -->
+
+
+
+</body>
+
+</html>
+

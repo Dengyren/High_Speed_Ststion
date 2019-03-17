@@ -1,0 +1,87 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html style="overflow: hidden;">
+<head>
+    <title>智能高速收费系统--用户系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="keywords" content="">
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- Bootstrap Core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <!-- Graph CSS -->
+    <link href="/css/font-awesome.css" rel="stylesheet">
+    <!-- jQuery -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400" rel="stylesheet" type="text/css">
+    <!-- lined-icons -->
+    <link rel="stylesheet" href="/css/icon-font.min.css" type="text/css">
+    <!-- //lined-icons -->
+    <script src="/js/jquery-1.10.2.min.js"></script>
+    <!--clock init-->
+</head>
+<body>
+    <!--/login-->
+
+    <div class="error_page">
+        <!--/login-top-->
+
+        <div class="error-top">
+            <h2 class="inner-tittle page">用户系统</h2>
+            <div class="login">
+                <h3 class="inner-tittle t-inner">登录</h3>
+
+                <form method="post" action="@ViewBag.FormAction">
+                    <input name="userID" type="text" id="idcard" class="text" placeholder="身份证号码">
+                    <input name="password" type="password" id="password" placeholder="密码">
+                    <div class="submit"><input type="submit" id="submit" value="登录"></div>
+                    <div class="clearfix"></div>
+                    <p align="center"style="color:red">@ViewBag.error</p>
+                    <p align="center" id="my_error"style="color:red"></p>
+                    <div class="new">
+                        @*<p><label class="checkbox11"><input type="checkbox" name="checkbox"><i> </i>忘记密码？</label></p>*@
+                        <p class="sign">还没有账号？  <a>@Html.ActionLink("注册", "Index", "SignUp")</a></p>
+                        <div class="clearfix"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--//login-top-->
+    </div>
+
+    <!--//login-->
+    <!--footer section start-->
+    <div class="footer"  style="background-image: url('../../images/bgLogin.png ');
+        background-repeat: no-repeat;
+        background-position: center top;
+        overflow: hidden;"> </div>
+    <!--footer section end-->
+    <!--/404-->
+    <!--js -->
+    <script src="/js/jquery.nicescroll.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="~/js/scripts.js"></script>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $("#submit").click(function () {
+            if ($("#idcard").val() == "") {
+                $("#my_error").text("请输入身份证号码");
+                return false;
+            }
+
+            if ($("#password").val() == "") {
+                $("#my_error").text("请输入密码");
+                return false;
+            }
+        });
+    });
+</script>

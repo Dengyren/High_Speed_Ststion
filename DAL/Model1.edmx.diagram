@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="69d0f02e4664479db9379a626151a651" Name="Diagram1">
+        <EntityTypeShape EntityType="HighSpeedTollSystemModel.TB_Action" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HighSpeedTollSystemModel.TB_AuditStatus" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HighSpeedTollSystemModel.TB_Balance" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="HighSpeedTollSystemModel.TB_CarAudit" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="HighSpeedTollSystemModel.TB_carID" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HighSpeedTollSystemModel.TB_FeedBack" Width="1.5" PointX="4.75" PointY="3.75" />
+        <EntityTypeShape EntityType="HighSpeedTollSystemModel.TB_HighSpeedState" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HighSpeedTollSystemModel.TB_MTC" Width="1.5" PointX="6.75" PointY="3.75" />
+        <EntityTypeShape EntityType="HighSpeedTollSystemModel.TB_OverSite" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="HighSpeedTollSystemModel.TB_OwnershipArea" Width="1.5" PointX="2.75" PointY="7.75" />
+        <EntityTypeShape EntityType="HighSpeedTollSystemModel.TB_pcUser" Width="1.5" PointX="4.75" PointY="7.75" />
+        <EntityTypeShape EntityType="HighSpeedTollSystemModel.TB_StationManager" Width="1.5" PointX="6.75" PointY="7.75" />
+        <EntityTypeShape EntityType="HighSpeedTollSystemModel.TB_Tollgate" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HighSpeedTollSystemModel.TB_user" Width="1.5" PointX="8.75" PointY="3.75" />
+        <EntityTypeShape EntityType="HighSpeedTollSystemModel.TB_UserAudit" Width="1.5" PointX="8.75" PointY="6.75" />
+        <EntityTypeShape EntityType="HighSpeedTollSystemModel.TB_UserInfo" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HighSpeedTollSystemModel.View_Action" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="HighSpeedTollSystemModel.View_Car" Width="1.5" PointX="10.75" PointY="3.75" />
+        <EntityTypeShape EntityType="HighSpeedTollSystemModel.View_CarInfo" Width="1.5" PointX="10.75" PointY="6.75" />
+        <EntityTypeShape EntityType="HighSpeedTollSystemModel.View_StationDetail" Width="1.5" PointX="6.75" PointY="10.75" />
+        <EntityTypeShape EntityType="HighSpeedTollSystemModel.View_TollStation" Width="1.5" PointX="8.75" PointY="10.75" />
+        <EntityTypeShape EntityType="HighSpeedTollSystemModel.View_UserFeedBackAudit" Width="1.5" PointX="10.75" PointY="10.75" />
+        <EntityTypeShape EntityType="HighSpeedTollSystemModel.View_UserInfo" Width="1.5" PointX="2.75" PointY="11.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
